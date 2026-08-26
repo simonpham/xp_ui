@@ -71,146 +71,147 @@ class _XPScrollbarState extends State<XPScrollbar> {
           left: isVertical ? null : 0,
           height: isVertical ? null : 17,
           width: isVertical ? 17 : null,
-          child: ListenableBuilder(
-            listenable: _effectiveController,
-            builder: (context, _) {
-              double scrollFraction = 0.0;
-              double thumbExtent = 0.3;
-              final isScrollable = _effectiveController.hasClients &&
-                  _effectiveController.position.hasContentDimensions &&
-                  _effectiveController.position.maxScrollExtent > 0;
+          child: RepaintBoundary(
+            child: ListenableBuilder(
+              listenable: _effectiveController,
+              builder: (context, _) {
+                double scrollFraction = 0.0;
+                double thumbExtent = 0.3;
+                final isScrollable = _effectiveController.hasClients &&
+                    _effectiveController.position.hasContentDimensions &&
+                    _effectiveController.position.maxScrollExtent > 0;
 
-              if (isScrollable) {
-                final maxExtent = _effectiveController.position.maxScrollExtent;
-                final currentOffset = _effectiveController.offset;
-                final viewportDimension = _effectiveController.position.viewportDimension;
-                scrollFraction = (currentOffset / maxExtent).clamp(0.0, 1.0);
-                thumbExtent = (viewportDimension / (maxExtent + viewportDimension)).clamp(0.1, 0.9);
-              }
+                if (isScrollable) {
+                  final maxExtent = _effectiveController.position.maxScrollExtent;
+                  final currentOffset = _effectiveController.offset;
+                  final viewportDimension = _effectiveController.position.viewportDimension;
+                  scrollFraction = (currentOffset / maxExtent).clamp(0.0, 1.0);
+                  thumbExtent = (viewportDimension / (maxExtent + viewportDimension)).clamp(0.1, 0.9);
+                }
 
-              if (isVertical) {
-                return Column(
-                  children: [
-                    XPScrollArrowButton(
-                      direction: Axis.vertical,
-                      isStart: true,
-                      onPressed: isScrollable ? () => _scrollBy(-40) : null,
-                    ),
-                    Expanded(
-                      child: Container(
-                        color: const Color(0xFFDFE8FF),
-                        child: CustomPaint(
-                          painter: _XPScrollbarTrackPainter(isVertical: true),
-                          child: !isScrollable
-                              ? const SizedBox.expand()
-                              : LayoutBuilder(
-                                  builder: (context, constraints) {
-                                    final trackHeight = constraints.maxHeight;
-                                    final thumbHeight = (trackHeight * thumbExtent).clamp(20.0, trackHeight);
-                                    final maxThumbTop = trackHeight - thumbHeight;
-                                    final thumbTop = maxThumbTop * scrollFraction;
+                if (isVertical) {
+                  return Column(
+                    children: [
+                      XPScrollArrowButton(
+                        direction: Axis.vertical,
+                        isStart: true,
+                        onPressed: isScrollable ? () => _scrollBy(-40) : null,
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: const Color(0xFFDFE8FF),
+                          child: CustomPaint(
+                            painter: const _XPScrollbarTrackPainter(isVertical: true),
+                            child: !isScrollable
+                                ? const SizedBox.expand()
+                                : LayoutBuilder(
+                                    builder: (context, constraints) {
+                                      final trackHeight = constraints.maxHeight;
+                                      final thumbHeight = (trackHeight * thumbExtent).clamp(20.0, trackHeight);
+                                      final maxThumbTop = trackHeight - thumbHeight;
+                                      final thumbTop = maxThumbTop * scrollFraction;
 
-                                    return Stack(
-                                      children: [
-                                        Positioned(
-                                          top: thumbTop,
-                                          left: 0,
-                                          width: 17,
-                                          height: thumbHeight,
-                                          child: GestureDetector(
-                                            onVerticalDragUpdate: (details) {
-                                              if (!_effectiveController.hasClients || maxThumbTop <= 0) return;
-                                              final deltaFraction = details.delta.dy / maxThumbTop;
-                                              final deltaOffset = deltaFraction * _effectiveController.position.maxScrollExtent;
-                                              _effectiveController.jumpTo(
-                                                (_effectiveController.offset + deltaOffset).clamp(
-                                                  0.0,
-                                                  _effectiveController.position.maxScrollExtent,
-                                                ),
-                                              );
-                                            },
-                                            child: CustomPaint(
-                                              painter: _XPScrollbarThumbPainter(isVertical: true),
+                                      return Stack(
+                                        children: [
+                                          Positioned(
+                                            top: thumbTop,
+                                            left: 0,
+                                            width: 17,
+                                            height: thumbHeight,
+                                            child: GestureDetector(
+                                              onVerticalDragUpdate: (details) {
+                                                if (!_effectiveController.hasClients || maxThumbTop <= 0) return;
+                                                final deltaFraction = details.delta.dy / maxThumbTop;
+                                                final deltaOffset = deltaFraction * _effectiveController.position.maxScrollExtent;
+                                                _effectiveController.jumpTo(
+                                                  (_effectiveController.offset + deltaOffset).clamp(
+                                                    0.0,
+                                                    _effectiveController.position.maxScrollExtent,
+                                                  ),
+                                                );
+                                              },
+                                              child: const CustomPaint(
+                                                painter: _XPScrollbarThumbPainter(isVertical: true),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                          ),
                         ),
                       ),
-                    ),
-                    XPScrollArrowButton(
-                      direction: Axis.vertical,
-                      isStart: false,
-                      onPressed: isScrollable ? () => _scrollBy(40) : null,
-                    ),
-                  ],
-                );
-              } else {
-                return Row(
-                  children: [
-                    XPScrollArrowButton(
-                      direction: Axis.horizontal,
-                      isStart: true,
-                      onPressed: isScrollable ? () => _scrollBy(-40) : null,
-                    ),
-                    Expanded(
-                      child: Container(
-                        color: const Color(0xFFDFE8FF),
-                        child: CustomPaint(
-                          painter: _XPScrollbarTrackPainter(isVertical: false),
-                          child: !isScrollable
-                              ? const SizedBox.expand()
-                              : LayoutBuilder(
-                                  builder: (context, constraints) {
-                                    final trackWidth = constraints.maxWidth;
-                                    final thumbWidth = (trackWidth * thumbExtent).clamp(20.0, trackWidth);
-                                    final maxThumbLeft = trackWidth - thumbWidth;
-                                    final thumbLeft = maxThumbLeft * scrollFraction;
+                      XPScrollArrowButton(
+                        direction: Axis.vertical,
+                        isStart: false,
+                        onPressed: isScrollable ? () => _scrollBy(40) : null,
+                      ),
+                    ],
+                  );
+                } else {
+                  return Row(
+                    children: [
+                      XPScrollArrowButton(
+                        direction: Axis.horizontal,
+                        isStart: true,
+                        onPressed: isScrollable ? () => _scrollBy(-40) : null,
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: const Color(0xFFDFE8FF),
+                          child: CustomPaint(
+                            painter: const _XPScrollbarTrackPainter(isVertical: false),
+                            child: !isScrollable
+                                ? const SizedBox.expand()
+                                : LayoutBuilder(
+                                    builder: (context, constraints) {
+                                      final trackWidth = constraints.maxWidth;
+                                      final thumbWidth = (trackWidth * thumbExtent).clamp(20.0, trackWidth);
+                                      final maxThumbLeft = trackWidth - thumbWidth;
+                                      final thumbLeft = maxThumbLeft * scrollFraction;
 
-                                    return Stack(
-                                      children: [
-                                        Positioned(
-                                          left: thumbLeft,
-                                          top: 0,
-                                          height: 17,
-                                          width: thumbWidth,
-                                          child: GestureDetector(
-                                            onHorizontalDragUpdate: (details) {
-                                              if (!_effectiveController.hasClients || maxThumbLeft <= 0) return;
-                                              final deltaFraction = details.delta.dx / maxThumbLeft;
-                                              final deltaOffset = deltaFraction * _effectiveController.position.maxScrollExtent;
-                                              _effectiveController.jumpTo(
-                                                (_effectiveController.offset + deltaOffset).clamp(
-                                                  0.0,
-                                                  _effectiveController.position.maxScrollExtent,
-                                                ),
-                                              );
-                                            },
-                                            child: CustomPaint(
-                                              painter: _XPScrollbarThumbPainter(isVertical: false),
+                                      return Stack(
+                                        children: [
+                                          Positioned(
+                                            left: thumbLeft,
+                                            top: 0,
+                                            height: 17,
+                                            width: thumbWidth,
+                                            child: GestureDetector(
+                                              onHorizontalDragUpdate: (details) {
+                                                if (!_effectiveController.hasClients || maxThumbLeft <= 0) return;
+                                                final deltaFraction = details.delta.dx / maxThumbLeft;
+                                                final deltaOffset = deltaFraction * _effectiveController.position.maxScrollExtent;
+                                                _effectiveController.jumpTo(
+                                                  (_effectiveController.offset + deltaOffset).clamp(
+                                                    0.0,
+                                                    _effectiveController.position.maxScrollExtent,
+                                                  ),
+                                                );
+                                              },
+                                              child: const CustomPaint(
+                                                painter: _XPScrollbarThumbPainter(isVertical: false),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                          ),
                         ),
                       ),
-                    ),
-                    XPScrollArrowButton(
-                      direction: Axis.horizontal,
-                      isStart: false,
-                      onPressed: isScrollable ? () => _scrollBy(40) : null,
-                    ),
-                  ],
-                );
-              }
-
-            },
+                      XPScrollArrowButton(
+                        direction: Axis.horizontal,
+                        isStart: false,
+                        onPressed: isScrollable ? () => _scrollBy(40) : null,
+                      ),
+                    ],
+                  );
+                }
+              },
+            ),
           ),
         ),
       ],
@@ -223,17 +224,17 @@ class _XPScrollbarTrackPainter extends CustomPainter {
 
   const _XPScrollbarTrackPainter({required this.isVertical});
 
+  static final Paint _borderPaint = Paint()
+    ..color = const Color(0xFFBDD0FB)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.0;
+
   @override
   void paint(Canvas canvas, Size size) {
-    final borderPaint = Paint()
-      ..color = const Color(0xFFBDD0FB)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
-
     if (isVertical) {
-      canvas.drawLine(const Offset(0.5, 0), Offset(0.5, size.height), borderPaint);
+      canvas.drawLine(const Offset(0.5, 0), Offset(0.5, size.height), _borderPaint);
     } else {
-      canvas.drawLine(const Offset(0, 0.5), Offset(size.width, 0.5), borderPaint);
+      canvas.drawLine(const Offset(0, 0.5), Offset(size.width, 0.5), _borderPaint);
     }
   }
 
@@ -246,56 +247,54 @@ class _XPScrollbarThumbPainter extends CustomPainter {
 
   const _XPScrollbarThumbPainter({required this.isVertical});
 
+  static final Paint _bgPaint = Paint()..color = const Color(0xFFC8D6FB);
+  static final Paint _outerBorderPaint = Paint()
+    ..color = const Color(0xFFFFFFFF)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.0;
+  static final Paint _shadowPaint1 = Paint()
+    ..color = const Color(0xFFBAD1FC)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.0;
+  static final Paint _shadowPaint2 = Paint()
+    ..color = const Color(0xFFB7CAF5)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.0;
+  static final Paint _gripperPaint = Paint()
+    ..color = const Color(0xFF5B81C9)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.0;
+
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
 
     // Fill background: #c8d6fb
-    canvas.drawRect(rect, Paint()..color = const Color(0xFFC8D6FB));
+    canvas.drawRect(rect, _bgPaint);
 
     // Outer border: 1px solid white
-    canvas.drawRect(
-      rect.deflate(0.5),
-      Paint()
-        ..color = const Color(0xFFFFFFFF)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.0,
-    );
+    canvas.drawRect(rect.deflate(0.5), _outerBorderPaint);
 
     // Inset shadows matching scroll-thumb.svg
-    final shadowPaint1 = Paint()
-      ..color = const Color(0xFFBAD1FC)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
-    final shadowPaint2 = Paint()
-      ..color = const Color(0xFFB7CAF5)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
-
     if (isVertical) {
-      canvas.drawLine(Offset(size.width - 1.5, 1), Offset(size.width - 1.5, size.height - 1), shadowPaint1);
-      canvas.drawLine(const Offset(1.5, 1), Offset(size.width - 1.5, 1), shadowPaint2);
+      canvas.drawLine(Offset(size.width - 1.5, 1), Offset(size.width - 1.5, size.height - 1), _shadowPaint1);
+      canvas.drawLine(const Offset(1.5, 1), Offset(size.width - 1.5, 1), _shadowPaint2);
     } else {
-      canvas.drawLine(Offset(1, size.height - 1.5), Offset(size.width - 1, size.height - 1.5), shadowPaint1);
-      canvas.drawLine(const Offset(1, 1.5), Offset(1, size.height - 1.5), shadowPaint2);
+      canvas.drawLine(Offset(1, size.height - 1.5), Offset(size.width - 1, size.height - 1.5), _shadowPaint1);
+      canvas.drawLine(const Offset(1, 1.5), Offset(1, size.height - 1.5), _shadowPaint2);
     }
 
     // Center gripper lines (scroll-thumb.svg)
-    final gripperPaint = Paint()
-      ..color = const Color(0xFF5B81C9)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
-
     if (isVertical && size.height >= 16) {
       final midY = (size.height / 2).floorToDouble();
-      canvas.drawLine(Offset(4, midY - 3), Offset(13, midY - 3), gripperPaint);
-      canvas.drawLine(Offset(4, midY), Offset(13, midY), gripperPaint);
-      canvas.drawLine(Offset(4, midY + 3), Offset(13, midY + 3), gripperPaint);
+      canvas.drawLine(Offset(4, midY - 3), Offset(13, midY - 3), _gripperPaint);
+      canvas.drawLine(Offset(4, midY), Offset(13, midY), _gripperPaint);
+      canvas.drawLine(Offset(4, midY + 3), Offset(13, midY + 3), _gripperPaint);
     } else if (!isVertical && size.width >= 16) {
       final midX = (size.width / 2).floorToDouble();
-      canvas.drawLine(Offset(midX - 3, 4), Offset(midX - 3, 13), gripperPaint);
-      canvas.drawLine(Offset(midX, 4), Offset(midX, 13), gripperPaint);
-      canvas.drawLine(Offset(midX + 3, 4), Offset(midX + 3, 13), gripperPaint);
+      canvas.drawLine(Offset(midX - 3, 4), Offset(midX - 3, 13), _gripperPaint);
+      canvas.drawLine(Offset(midX, 4), Offset(midX, 13), _gripperPaint);
+      canvas.drawLine(Offset(midX + 3, 4), Offset(midX + 3, 13), _gripperPaint);
     }
   }
 

@@ -2,8 +2,11 @@ import 'package:flutter/widgets.dart';
 import 'package:xp_dart/xp_dart.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  XPSvgImage.preloadAll();
   runApp(const XPExampleApp());
 }
+
 
 /// Main Example Application porting the official XP.css documentation page into Flutter.
 class XPExampleApp extends StatelessWidget {
@@ -58,8 +61,10 @@ class _XPDocumentationPageState extends State<XPDocumentationPage> {
     'Status Bar': GlobalKey(),
     'TreeView': GlobalKey(),
     'ProgressBar': GlobalKey(),
+    'Scrollbar & ListView': GlobalKey(),
     'Issues, Contributing, etc.': GlobalKey(),
   };
+
 
   void _scrollToSection(String label) {
     final key = _sectionKeys[label];
@@ -178,10 +183,12 @@ class _XPDocumentationPageState extends State<XPDocumentationPage> {
                                 ),
                                 XPTreeItem(label: 'TreeView'),
                                 XPTreeItem(label: 'ProgressBar'),
+                                XPTreeItem(label: 'Scrollbar & ListView'),
                               ],
                             ),
                             XPTreeItem(label: 'Issues, Contributing, etc.'),
                           ],
+
                         ),
                       ),
                     ),
@@ -199,21 +206,21 @@ class _XPDocumentationPageState extends State<XPDocumentationPage> {
               padding: const EdgeInsets.all(12.0),
               child: XPScrollbar(
                 controller: _mainScrollController,
-                child: SingleChildScrollView(
+                child: ListView(
                   controller: _mainScrollController,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Header
-                      const Text(
-                        'XP.css',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Arial',
-                          color: Color(0xFF000000),
-                        ),
+                  padding: const EdgeInsets.only(right: 20),
+                  children: [
+                    // Header
+                    const Text(
+                      'XP.css',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Arial',
+                        color: Color(0xFF000000),
                       ),
+                    ),
+
                       _buildRainbowDivider(),
                       const Text(
                         'A design system for building faithful recreations of old UIs.',
@@ -755,9 +762,59 @@ class _XPDocumentationPageState extends State<XPDocumentationPage> {
                         ),
                       ),
 
+                      // 12. Scrollbar & ListView (Lazy) Component
+                      _buildComponentCard(
+                        key: _sectionKeys['Scrollbar & ListView'],
+                        title: 'Scrollbar & ListView (Lazy Scrolling)',
+                        quote:
+                            'Scroll bars allow the user to view content that extends beyond the visible area.\n— Microsoft Windows User Experience Guidelines',
+                        description:
+                            'XPScrollbar wrapping ListView.builder with 1,000 lazily rendered items at 60/120 FPS.',
+                        demo: SizedBox(
+                          height: 140,
+                          child: XPScrollbar(
+                            child: ListView.builder(
+                              itemCount: 1000,
+                              padding: const EdgeInsets.only(right: 20, top: 4, bottom: 4),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: const Color(0xFFD0D0BF).withValues(alpha: 0.5),
+                                        width: 0.5,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'File_${(index + 1).toString().padLeft(4, '0')}.doc',
+                                        style: const TextStyle(fontSize: 11, fontFamily: 'Arial'),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '${(index * 17 % 500) + 12} KB',
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          fontFamily: 'Arial',
+                                          color: Color(0xFF777777),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+
                       // Footer / Contributing
                       _buildSectionHeader('Issues, Contributing, etc.',
                           key: _sectionKeys['Issues, Contributing, etc.']),
+
                       const Text(
                         'XP.css is open-source under the MIT license.\n'
                         'Thank you for using XP.css!',
@@ -769,7 +826,7 @@ class _XPDocumentationPageState extends State<XPDocumentationPage> {
                 ),
               ),
             ),
-          ),
+
         ],
       ),
     );
