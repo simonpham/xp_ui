@@ -4829,7 +4829,39 @@ class XPSvgAssets {
 <path stroke="#a6d2b1" d="M1 20h1" />
 <path stroke="#67d466" d="M3 20h1" />
 <path stroke="#66d465" d="M4 20h3" />
-<path stroke="#63d362" d="M7 20h1" />
 </svg>
 ''';
+
+  /// All embedded SVG asset strings.
+  static const List<String> all = [
+    checkmarkSvg,
+    checkmarkDisabledSvg,
+    radioDotSvg,
+    radioDotDisabledSvg,
+    dropdownSvg,
+    dropdownHoverSvg,
+    dropdownActiveSvg,
+    closeSvg,
+    closeHoverSvg,
+    closeActiveSvg,
+    minimizeSvg,
+    minimizeHoverSvg,
+    minimizeActiveSvg,
+    maximizeSvg,
+    maximizeHoverSvg,
+    maximizeActiveSvg,
+    restoreSvg,
+    restoreHoverSvg,
+    restoreActiveSvg,
+    helpSvg,
+    helpHoverSvg,
+    helpActiveSvg,
+    scrollArrowUpSvg,
+    scrollArrowDownSvg,
+    scrollArrowLeftSvg,
+    scrollArrowRightSvg,
+    indicatorHorizontalSvg,
+    indicatorRectangleHorizontalSvg,
+  ];
 }
+

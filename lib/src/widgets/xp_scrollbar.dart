@@ -3,19 +3,27 @@ import '../svg/xp_svg_assets.dart';
 import '../svg/xp_svg_image.dart';
 
 /// Authentic Windows XP styled Scrollbar widget matching XP.css.
+///
 /// Features 17px SVG arrow buttons, #c8d6fb thumb with 1px white border and inset shadows,
 /// and smooth scroll controller integration.
 class XPScrollbar extends StatefulWidget {
+  /// The scrollable child widget wrapped by this scrollbar.
   final Widget child;
+
+  /// Optional external [ScrollController]. If omitted, an internal controller is used.
   final ScrollController? controller;
+
+  /// The axis along which scrolling occurs (defaults to [Axis.vertical]).
   final Axis scrollDirection;
 
+  /// Creates an [XPScrollbar].
   const XPScrollbar({
     super.key,
     required this.child,
     this.controller,
     this.scrollDirection = Axis.vertical,
   });
+
 
   @override
   State<XPScrollbar> createState() => _XPScrollbarState();
@@ -213,7 +221,7 @@ class _XPScrollbarState extends State<XPScrollbar> {
 class _XPScrollbarTrackPainter extends CustomPainter {
   final bool isVertical;
 
-  _XPScrollbarTrackPainter({required this.isVertical});
+  const _XPScrollbarTrackPainter({required this.isVertical});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -236,7 +244,7 @@ class _XPScrollbarTrackPainter extends CustomPainter {
 class _XPScrollbarThumbPainter extends CustomPainter {
   final bool isVertical;
 
-  _XPScrollbarThumbPainter({required this.isVertical});
+  const _XPScrollbarThumbPainter({required this.isVertical});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -296,13 +304,18 @@ class _XPScrollbarThumbPainter extends CustomPainter {
       oldDelegate.isVertical != isVertical;
 }
 
-
 /// Helper for rendering scrollbar arrow buttons matching ::-webkit-scrollbar-button (17px x 17px).
 class XPScrollArrowButton extends StatelessWidget {
-  final Axis direction; // Axis.vertical or Axis.horizontal
-  final bool isStart; // true for up/left, false for down/right
+  /// The scroll orientation of the button.
+  final Axis direction;
+
+  /// Whether this is the start arrow (up/left) or end arrow (down/right).
+  final bool isStart;
+
+  /// Callback invoked when the button is tapped.
   final VoidCallback? onPressed;
 
+  /// Creates an [XPScrollArrowButton].
   const XPScrollArrowButton({
     super.key,
     required this.direction,
@@ -332,5 +345,6 @@ class XPScrollArrowButton extends StatelessWidget {
     );
   }
 }
+
 
 

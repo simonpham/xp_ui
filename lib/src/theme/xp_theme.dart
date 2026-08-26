@@ -104,12 +104,22 @@ class XPColors {
 
 /// Theme configuration for xp_dart widgets.
 class XPThemeData {
+  /// Default surface background color (#ECE9D8).
   final Color surface;
+
+  /// Primary dialog blue color (#2267CB).
   final Color dialogBlue;
+
+  /// Border color for inputs (#7F9DB9).
   final Color inputBorder;
+
+  /// Default text style for XP controls (11px, Arial).
   final TextStyle textStyle;
+
+  /// Window title bar text style (13px, bold, Trebuchet MS with shadow).
   final TextStyle windowTitleStyle;
 
+  /// Creates an [XPThemeData] instance.
   const XPThemeData({
     this.surface = XPColors.surface,
     this.dialogBlue = XPColors.dialogBlue,
@@ -132,18 +142,63 @@ class XPThemeData {
       ],
     ),
   });
+
+  /// Creates a copy of this [XPThemeData] with the given fields replaced with new values.
+  XPThemeData copyWith({
+    Color? surface,
+    Color? dialogBlue,
+    Color? inputBorder,
+    TextStyle? textStyle,
+    TextStyle? windowTitleStyle,
+  }) {
+    return XPThemeData(
+      surface: surface ?? this.surface,
+      dialogBlue: dialogBlue ?? this.dialogBlue,
+      inputBorder: inputBorder ?? this.inputBorder,
+      textStyle: textStyle ?? this.textStyle,
+      windowTitleStyle: windowTitleStyle ?? this.windowTitleStyle,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is XPThemeData &&
+          runtimeType == other.runtimeType &&
+          surface == other.surface &&
+          dialogBlue == other.dialogBlue &&
+          inputBorder == other.inputBorder &&
+          textStyle == other.textStyle &&
+          windowTitleStyle == other.windowTitleStyle;
+
+  @override
+  int get hashCode => Object.hash(
+        surface,
+        dialogBlue,
+        inputBorder,
+        textStyle,
+        windowTitleStyle,
+      );
+
+  @override
+  String toString() => 'XPThemeData(surface: $surface, dialogBlue: $dialogBlue)';
 }
 
 /// InheritedWidget providing [XPThemeData] down the widget tree.
 class XPTheme extends InheritedWidget {
+  /// The [XPThemeData] provided to descendants.
   final XPThemeData data;
 
+  /// Creates an [XPTheme] widget.
   const XPTheme({
     super.key,
     required this.data,
     required super.child,
   });
 
+  /// Obtains the nearest [XPThemeData] from the given [context].
+  ///
+  /// Defaults to a standard [XPThemeData] if none is found.
   static XPThemeData of(BuildContext context) {
     final theme = context.dependOnInheritedWidgetOfExactType<XPTheme>();
     return theme?.data ?? const XPThemeData();
@@ -152,3 +207,4 @@ class XPTheme extends InheritedWidget {
   @override
   bool updateShouldNotify(XPTheme oldWidget) => data != oldWidget.data;
 }
+

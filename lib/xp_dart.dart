@@ -7,6 +7,10 @@ library;
 // Theme & Colors
 export 'src/theme/xp_theme.dart';
 
+// SVG Assets & Rendering
+export 'src/svg/xp_svg_assets.dart';
+export 'src/svg/xp_svg_image.dart';
+
 // Low-level Custom Painters
 export 'src/painters/xp_painters.dart';
 
@@ -25,3 +29,4 @@ export 'src/widgets/xp_tabs.dart';
 export 'src/widgets/xp_text_field.dart';
 export 'src/widgets/xp_tree_view.dart';
 export 'src/widgets/xp_window.dart';
+

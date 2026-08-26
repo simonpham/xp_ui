@@ -6,25 +6,56 @@ import '../svg/xp_svg_image.dart';
 import '../theme/xp_theme.dart';
 
 
-/// Item for XPDropdown
+/// Item model for [XPDropdown].
 class XPDropdownItem<T> {
+  /// The underlying value of this dropdown item.
   final T value;
+
+  /// The human-readable text label displayed for this item.
   final String label;
 
+  /// Creates an [XPDropdownItem].
   const XPDropdownItem({
     required this.value,
     required this.label,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is XPDropdownItem<T> &&
+          runtimeType == other.runtimeType &&
+          value == other.value &&
+          label == other.label;
+
+  @override
+  int get hashCode => Object.hash(value, label);
+
+  @override
+  String toString() => 'XPDropdownItem(value: $value, label: $label)';
 }
 
 /// A Windows XP styled Dropdown select control matching XP.css.
+///
+/// Displays the currently selected item and presents a popup overlay
+/// menu when opened.
 class XPDropdown<T> extends StatefulWidget {
+  /// The currently selected value.
   final T? value;
+
+  /// The list of items available for selection.
   final List<XPDropdownItem<T>> items;
+
+  /// Callback invoked when an item is chosen.
   final ValueChanged<T?>? onChanged;
+
+  /// Whether the dropdown is enabled and interactive.
   final bool enabled;
+
+  /// Whether the dropdown should automatically focus when mounted.
   final bool autofocus;
 
+  /// Creates an [XPDropdown].
   const XPDropdown({
     super.key,
     required this.value,
@@ -33,6 +64,7 @@ class XPDropdown<T> extends StatefulWidget {
     this.enabled = true,
     this.autofocus = false,
   });
+
 
   @override
   State<XPDropdown<T>> createState() => _XPDropdownState<T>();

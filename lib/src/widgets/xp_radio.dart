@@ -6,14 +6,29 @@ import '../svg/xp_svg_image.dart';
 import '../theme/xp_theme.dart';
 
 /// A Windows XP styled Radio Button widget matching XP.css.
+///
+/// Displays a circular radio button with authentic 3D gradient, hover shadow,
+/// and green dot indicator when selected.
 class XPRadioButton<T> extends StatefulWidget {
+  /// The value represented by this radio button.
   final T value;
+
+  /// The currently selected value for the radio group.
   final T? groupValue;
+
+  /// Callback invoked when this radio button is selected.
   final ValueChanged<T?>? onChanged;
+
+  /// Optional text label displayed next to the radio button.
   final String? label;
+
+  /// Whether the radio button is enabled and interactive.
   final bool enabled;
+
+  /// Whether the radio button should automatically focus when mounted.
   final bool autofocus;
 
+  /// Creates an [XPRadioButton].
   const XPRadioButton({
     super.key,
     required this.value,
@@ -24,11 +39,13 @@ class XPRadioButton<T> extends StatefulWidget {
     this.autofocus = false,
   });
 
+  /// Whether this radio button is currently selected.
   bool get isSelected => value == groupValue;
 
   @override
   State<XPRadioButton<T>> createState() => _XPRadioButtonState<T>();
 }
+
 
 class _XPRadioButtonState<T> extends State<XPRadioButton<T>> {
   bool _isHovered = false;

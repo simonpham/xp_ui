@@ -6,10 +6,16 @@ import '../theme/xp_theme.dart';
 
 /// Single tab item definition for [XPTabs].
 class XPTab {
+  /// Custom widget to use as the tab header title.
   final Widget? titleWidget;
+
+  /// String title for the tab header if [titleWidget] is not provided.
   final String? label;
+
+  /// The body content to display when this tab is active.
   final Widget child;
 
+  /// Creates an [XPTab].
   const XPTab({
     this.titleWidget,
     this.label,
@@ -18,14 +24,23 @@ class XPTab {
 }
 
 /// Authentic Windows XP Tabbed Container widget matching XP.css.
+///
 /// Selected tabs rise 2px higher (26px vs 23px), have top orange border #E68B2C,
 /// 2px warm yellow inset glow #FFC73C, and seamless tabpanel overlap.
 class XPTabs extends StatelessWidget {
+  /// The list of tabs to render.
   final List<XPTab> tabs;
+
+  /// Index of the currently active tab.
   final int selectedIndex;
+
+  /// Callback invoked when a tab header is tapped or selected via arrow keys.
   final ValueChanged<int> onTabSelected;
+
+  /// Whether the tab headers should expand to fill the full container width.
   final bool justified;
 
+  /// Creates an [XPTabs] container.
   const XPTabs({
     super.key,
     required this.tabs,
@@ -33,6 +48,7 @@ class XPTabs extends StatelessWidget {
     required this.onTabSelected,
     this.justified = false,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -251,12 +267,16 @@ class _XPTabBorderPainter extends CustomPainter {
 }
 
 /// Panel container for tab content.
-/// [role=tabpanel] { background: linear-gradient(180deg, #fcfcfe 0%, #f4f3ee 100%);
-/// border: 1px solid #919b9c; box-shadow: inset 1px 1px #fcfcfe, inset -1px -1px #fcfcfe, 1px 2px 2px 0px rgba(208,206,191,0.75) }
+///
+/// Matches XP.css `[role=tabpanel]` with subtle gradient and inset shadows.
 class XPTabPanel extends StatelessWidget {
+  /// Content to display inside the tab panel.
   final Widget child;
+
+  /// Padding around the tab panel content.
   final EdgeInsetsGeometry padding;
 
+  /// Creates an [XPTabPanel].
   const XPTabPanel({
     super.key,
     required this.child,
@@ -266,7 +286,7 @@ class XPTabPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _XPTabPanelPainter(),
+      painter: const _XPTabPanelPainter(),
       child: Container(
         padding: padding,
         child: child,
@@ -276,6 +296,8 @@ class XPTabPanel extends StatelessWidget {
 }
 
 class _XPTabPanelPainter extends CustomPainter {
+  const _XPTabPanelPainter();
+
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
@@ -311,5 +333,6 @@ class _XPTabPanelPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _XPTabPanelPainter oldDelegate) => false;
 }
+
 
 

@@ -34,19 +34,38 @@ class XPTextSelectionControls extends TextSelectionControls {
   Size getHandleSize(double textLineHeight) => Size.zero;
 }
 
+/// Global shared selection controls instance for Windows XP text fields.
 final TextSelectionControls xpTextSelectionControls = XPTextSelectionControls();
 
 /// Authentic Windows XP single-line Text Input widget.
+///
+/// Features classic XP inset border (#7F9DB9) and white background.
 class XPTextField extends StatefulWidget {
+  /// Controller for editing text. If omitted, an internal controller is created.
   final TextEditingController? controller;
+
+  /// Callback invoked when text changes.
   final ValueChanged<String>? onChanged;
+
+  /// Callback invoked when user submits editing (e.g. presses enter).
   final ValueChanged<String>? onSubmitted;
+
+  /// Whether to obscure text for password fields.
   final bool obscureText;
+
+  /// Whether the input field is enabled.
   final bool enabled;
+
+  /// Whether the input field should automatically focus when mounted.
   final bool autofocus;
+
+  /// Placeholder hint text displayed when input is empty.
   final String? placeholder;
+
+  /// Explicit width for the text field.
   final double? width;
 
+  /// Creates an [XPTextField].
   const XPTextField({
     super.key,
     this.controller,
@@ -67,11 +86,13 @@ class _XPTextFieldState extends State<XPTextField> {
   late final TextEditingController _controller;
   late final FocusNode _focusNode;
   bool _isFocused = false;
+  bool _wasEmpty = true;
 
   @override
   void initState() {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
+    _wasEmpty = _controller.text.isEmpty;
     _controller.addListener(_handleControllerChange);
     _focusNode = FocusNode();
     _focusNode.addListener(() {
@@ -80,7 +101,11 @@ class _XPTextFieldState extends State<XPTextField> {
   }
 
   void _handleControllerChange() {
-    if (mounted) setState(() {});
+    final nowEmpty = _controller.text.isEmpty;
+    if (_wasEmpty != nowEmpty) {
+      _wasEmpty = nowEmpty;
+      if (mounted) setState(() {});
+    }
   }
 
   @override
@@ -151,15 +176,31 @@ class _XPTextFieldState extends State<XPTextField> {
 
 /// Authentic Windows XP multi-line Text Area widget.
 class XPTextArea extends StatefulWidget {
+  /// Controller for editing text. If omitted, an internal controller is created.
   final TextEditingController? controller;
+
+  /// Callback invoked when text changes.
   final ValueChanged<String>? onChanged;
+
+  /// Whether the text area is enabled.
   final bool enabled;
+
+  /// Whether the text area should automatically focus when mounted.
   final bool autofocus;
+
+  /// Placeholder hint text displayed when input is empty.
   final String? placeholder;
+
+  /// Explicit width for the text area.
   final double? width;
+
+  /// Explicit height for the text area (defaults to 80.0).
   final double? height;
+
+  /// Maximum number of lines.
   final int? maxLines;
 
+  /// Creates an [XPTextArea].
   const XPTextArea({
     super.key,
     this.controller,
@@ -180,11 +221,13 @@ class _XPTextAreaState extends State<XPTextArea> {
   late final TextEditingController _controller;
   late final FocusNode _focusNode;
   bool _isFocused = false;
+  bool _wasEmpty = true;
 
   @override
   void initState() {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
+    _wasEmpty = _controller.text.isEmpty;
     _controller.addListener(_handleControllerChange);
     _focusNode = FocusNode();
     _focusNode.addListener(() {
@@ -193,7 +236,11 @@ class _XPTextAreaState extends State<XPTextArea> {
   }
 
   void _handleControllerChange() {
-    if (mounted) setState(() {});
+    final nowEmpty = _controller.text.isEmpty;
+    if (_wasEmpty != nowEmpty) {
+      _wasEmpty = nowEmpty;
+      if (mounted) setState(() {});
+    }
   }
 
   @override
@@ -258,4 +305,5 @@ class _XPTextAreaState extends State<XPTextArea> {
     );
   }
 }
+
 

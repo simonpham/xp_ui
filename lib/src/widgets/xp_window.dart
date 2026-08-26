@@ -5,21 +5,50 @@ import '../svg/xp_svg_image.dart';
 import '../theme/xp_theme.dart';
 
 /// A Windows XP styled Window container.
+///
+/// Features classic Luna Blue 6-tier nested border, gradient title bar,
+/// window control buttons, window body, and status bar.
 class XPWindow extends StatelessWidget {
+  /// The main content child of the window.
   final Widget child;
+
+  /// Title text displayed in the title bar.
   final String? titleText;
+
+  /// Leading widget displayed before the title text (e.g. program icon).
   final Widget? titleLeading;
+
+  /// Window control buttons to display on the top right (Minimize, Maximize, Close, Help).
   final List<XPWindowButtonType> buttons;
+
+  /// Callback when the close button is pressed.
   final VoidCallback? onClose;
+
+  /// Callback when the minimize button is pressed.
   final VoidCallback? onMinimize;
+
+  /// Callback when the maximize or restore button is pressed.
   final VoidCallback? onMaximize;
+
+  /// Callback when the help button is pressed.
   final VoidCallback? onHelp;
+
+  /// Optional status bar widget pinned to the bottom of the window.
   final Widget? statusBar;
+
+  /// Explicit width for the window.
   final double? width;
+
+  /// Explicit height for the window.
   final double? height;
+
+  /// Outer margin around the window frame.
   final EdgeInsetsGeometry? margin;
+
+  /// Whether the window is currently active/focused (affects title bar gradient).
   final bool isFocused;
 
+  /// Creates an [XPWindow].
   const XPWindow({
     super.key,
     required this.child,
@@ -40,6 +69,7 @@ class XPWindow extends StatelessWidget {
     this.margin,
     this.isFocused = true,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -237,6 +267,8 @@ class _XPWindowTitleBar extends StatelessWidget {
 }
 
 class _XPTitleBarBorderPainter extends CustomPainter {
+  const _XPTitleBarBorderPainter();
+
   @override
   void paint(Canvas canvas, Size size) {
     final topLeftPaint = Paint()
@@ -257,11 +289,6 @@ class _XPTitleBarBorderPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _XPTitleBarBorderPainter oldDelegate) => false;
 }
-
-
-
-
-
 
 class _XPWindowControlButton extends StatefulWidget {
   final XPWindowButtonType type;
@@ -347,13 +374,17 @@ class _XPWindowControlButtonState extends State<_XPWindowControlButton> {
   }
 }
 
-
-/// Body container inside XPWindow.
-/// .window-body { margin: 8px } (--element-spacing: 8px)
+/// Body container inside [XPWindow].
+///
+/// Matches XP.css `.window-body` with default 8px padding and surface color.
 class XPWindowBody extends StatelessWidget {
+  /// The content child.
   final Widget child;
+
+  /// Padding around the window body content (defaults to 8.0).
   final EdgeInsetsGeometry padding;
 
+  /// Creates an [XPWindowBody].
   const XPWindowBody({
     super.key,
     required this.child,
@@ -371,10 +402,13 @@ class XPWindowBody extends StatelessWidget {
 }
 
 /// Windows XP Status bar container matching XP.css.
-/// .status-bar { margin: 0 3px; box-shadow: inset 0px 1px 2px #808080; padding: 2px 1px; gap: 0px }
+///
+/// Features classic inset top shadow and segmented fields.
 class XPStatusBar extends StatelessWidget {
+  /// List of [XPStatusBarField] widgets in the status bar.
   final List<XPStatusBarField> fields;
 
+  /// Creates an [XPStatusBar].
   const XPStatusBar({
     super.key,
     required this.fields,
@@ -385,7 +419,7 @@ class XPStatusBar extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 3),
       child: CustomPaint(
-        foregroundPainter: _XPStatusBarInnerShadowPainter(),
+        foregroundPainter: const _XPStatusBarInnerShadowPainter(),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 2),
           color: XPColors.surface,
@@ -408,6 +442,8 @@ class XPStatusBar extends StatelessWidget {
 }
 
 class _XPStatusBarInnerShadowPainter extends CustomPainter {
+  const _XPStatusBarInnerShadowPainter();
+
   @override
   void paint(Canvas canvas, Size size) {
     // box-shadow: inset 0px 1px 2px #808080
@@ -429,19 +465,18 @@ class _XPStatusBarInnerShadowPainter extends CustomPainter {
   bool shouldRepaint(covariant _XPStatusBarInnerShadowPainter oldDelegate) => false;
 }
 
-/// Status bar field inside XPStatusBar.
-/// .status-bar-field {
-///   font-family: var(--sans-serif); padding: 1px 2px;
-///   border-right: 1px solid rgba(208, 206, 191, 0.75);
-///   border-left: 1px solid rgba(255, 255, 255, 0.75);
-///   &:first-of-type { border-left: none }
-///   &:last-of-type { border-right: none }
-/// }
+/// Status bar field segment inside [XPStatusBar].
 class XPStatusBarField extends StatelessWidget {
+  /// The field content widget.
   final Widget child;
+
+  /// Whether this is the first field in the bar (removes left border).
   final bool isFirst;
+
+  /// Whether this is the last field in the bar (removes right border).
   final bool isLast;
 
+  /// Creates an [XPStatusBarField].
   const XPStatusBarField({
     super.key,
     required this.child,
@@ -474,4 +509,5 @@ class XPStatusBarField extends StatelessWidget {
     );
   }
 }
+
 

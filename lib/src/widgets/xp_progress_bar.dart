@@ -4,15 +4,22 @@ import '../painters/xp_painters.dart';
 import '../theme/xp_theme.dart';
 
 /// A Windows XP styled Progress Bar widget.
-/// Matches _progressbar.scss:
+///
+/// Matches XP.css:
 ///   height: 14px, border: 1px solid #686868, border-radius: 4px,
 ///   padding: 1px 2px 1px 0px, background-color: white
 ///   blocks: 8px wide, 2px gap, green gradient
 class XPProgressBar extends StatefulWidget {
-  final double? value; // 0.0 to 1.0, or null for indeterminate mode
+  /// Progress value between 0.0 and 1.0. If null, progress bar runs in animated indeterminate mode.
+  final double? value;
+
+  /// Width of the progress bar (defaults to [double.infinity]).
   final double width;
+
+  /// Height of the progress bar (defaults to 14.0 per Windows XP standards).
   final double height;
 
+  /// Creates an [XPProgressBar].
   const XPProgressBar({
     super.key,
     this.value,
@@ -64,7 +71,7 @@ class _XPProgressBarState extends State<XPProgressBar>
       width: widget.width,
       height: widget.height,
       child: CustomPaint(
-        painter: _XPProgressBarFramePainter(),
+        painter: const _XPProgressBarFramePainter(),
         child: Padding(
           // CSS: padding: 1px 2px 1px 0px; height: 14px;
           padding: const EdgeInsets.only(top: 1, bottom: 1, left: 1, right: 2),
@@ -89,6 +96,8 @@ class _XPProgressBarState extends State<XPProgressBar>
 }
 
 class _XPProgressBarFramePainter extends CustomPainter {
+  const _XPProgressBarFramePainter();
+
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
@@ -120,6 +129,7 @@ class _XPProgressBarFramePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _XPProgressBarFramePainter oldDelegate) => false;
 }
+
 
 
 

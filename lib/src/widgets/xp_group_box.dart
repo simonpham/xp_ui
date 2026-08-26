@@ -2,13 +2,26 @@ import 'package:flutter/widgets.dart';
 import '../theme/xp_theme.dart';
 
 /// Authentic Windows XP Fieldset / GroupBox widget matching XP.css.
+///
+/// Encloses child controls within an engraved 1px border (#D0D0BF)
+/// with the characteristic blue legend title (#0046D5) breaking the top border.
 class XPGroupBox extends StatefulWidget {
+  /// Custom legend widget displayed on top of the fieldset border.
   final Widget? legend;
+
+  /// String title for the legend if [legend] widget is not provided.
   final String? label;
+
+  /// The child content contained within the group box.
   final Widget child;
+
+  /// Inner padding inside the group box (defaults to `EdgeInsets.only(left: 8, right: 8, top: 10, bottom: 8)`).
   final EdgeInsetsGeometry padding;
+
+  /// Outer margin around the group box (defaults to `EdgeInsets.only(bottom: 9)`).
   final EdgeInsetsGeometry margin;
 
+  /// Creates an [XPGroupBox].
   const XPGroupBox({
     super.key,
     this.legend,
@@ -25,6 +38,44 @@ class XPGroupBox extends StatefulWidget {
 class _XPGroupBoxState extends State<XPGroupBox> {
   final GlobalKey _legendKey = GlobalKey();
   double _legendWidth = 0.0;
+  bool _needsMeasurement = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _calculateInitialWidth();
+  }
+
+  @override
+  void didUpdateWidget(covariant XPGroupBox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.label != oldWidget.label || widget.legend != oldWidget.legend) {
+      _calculateInitialWidth();
+      _needsMeasurement = true;
+    }
+  }
+
+  void _calculateInitialWidth() {
+    if (widget.label != null) {
+      final textPainter = TextPainter(
+        text: TextSpan(
+          text: widget.label!,
+          style: const TextStyle(
+            fontSize: 11,
+            fontFamily: 'Arial',
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      _legendWidth = textPainter.width + 4.0; // include 2px horizontal padding on each side
+      _needsMeasurement = false;
+    } else if (widget.legend != null) {
+      _needsMeasurement = true;
+    } else {
+      _legendWidth = 0.0;
+      _needsMeasurement = false;
+    }
+  }
 
   void _measureLegend() {
     final context = _legendKey.currentContext;
@@ -32,6 +83,7 @@ class _XPGroupBoxState extends State<XPGroupBox> {
       final renderBox = context.findRenderObject() as RenderBox?;
       if (renderBox != null && renderBox.hasSize) {
         final w = renderBox.size.width;
+        _needsMeasurement = false;
         if (w != _legendWidth && mounted) {
           setState(() {
             _legendWidth = w;
@@ -40,6 +92,7 @@ class _XPGroupBoxState extends State<XPGroupBox> {
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,25 +110,9 @@ class _XPGroupBoxState extends State<XPGroupBox> {
       );
     }
 
-    if (legendWidget != null && _legendWidth == 0.0) {
-      // Synchronous TextPainter estimation for initial render frame to avoid 1-frame gap jump
-      if (widget.label != null) {
-        final textPainter = TextPainter(
-          text: TextSpan(
-            text: widget.label!,
-            style: const TextStyle(
-              fontSize: 11,
-              fontFamily: 'Arial',
-            ),
-          ),
-          textDirection: TextDirection.ltr,
-        )..layout();
-        _legendWidth = textPainter.width;
-      }
+    if (_needsMeasurement && legendWidget != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _measureLegend());
     }
-
-    // Schedule post-frame measurement for dynamic legend widgets
-    WidgetsBinding.instance.addPostFrameCallback((_) => _measureLegend());
 
     return Container(
       margin: widget.margin,
@@ -112,7 +149,7 @@ class _XPGroupBoxState extends State<XPGroupBox> {
 class _XPGroupBoxBorderPainter extends CustomPainter {
   final double legendWidth;
 
-  _XPGroupBoxBorderPainter({required this.legendWidth});
+  const _XPGroupBoxBorderPainter({required this.legendWidth});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -156,13 +193,18 @@ class _XPGroupBoxBorderPainter extends CustomPainter {
       oldDelegate.legendWidth != legendWidth;
 }
 
-
 /// Horizontal field layout helper (Row with 6px spacing).
 class XPFieldRow extends StatelessWidget {
+  /// Children widgets to layout in a row.
   final List<Widget> children;
+
+  /// Main axis alignment.
   final MainAxisAlignment mainAxisAlignment;
+
+  /// Cross axis alignment.
   final CrossAxisAlignment crossAxisAlignment;
 
+  /// Creates an [XPFieldRow].
   const XPFieldRow({
     super.key,
     required this.children,
@@ -188,11 +230,19 @@ class XPFieldRow extends StatelessWidget {
 
 /// Vertical field layout helper (Column with 6px spacing).
 class XPFieldRowStacked extends StatelessWidget {
+  /// Children widgets to layout vertically.
   final List<Widget> children;
+
+  /// Main axis alignment.
   final MainAxisAlignment mainAxisAlignment;
+
+  /// Cross axis alignment.
   final CrossAxisAlignment crossAxisAlignment;
+
+  /// Explicit width constraint.
   final double? width;
 
+  /// Creates an [XPFieldRowStacked].
   const XPFieldRowStacked({
     super.key,
     required this.children,
@@ -219,3 +269,4 @@ class XPFieldRowStacked extends StatelessWidget {
     );
   }
 }
+

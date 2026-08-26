@@ -6,17 +6,38 @@ import '../svg/xp_svg_image.dart';
 
 
 /// Authentic Windows XP Slider / Range control widget matching XP.css.
+///
+/// Supports horizontal and vertical orientations, continuous or discrete stepped values,
+/// and pointer or box indicators.
 class XPSlider extends StatefulWidget {
+  /// The current slider value.
   final double value;
+
+  /// Minimum value of the slider (defaults to 0.0).
   final double min;
+
+  /// Maximum value of the slider (defaults to 1.0).
   final double max;
+
+  /// Number of discrete step divisions. If null, slider is continuous.
   final int? divisions;
+
+  /// Callback invoked when slider value changes.
   final ValueChanged<double>? onChanged;
+
+  /// Whether the slider is oriented vertically (defaults to false).
   final bool isVertical;
+
+  /// Whether to use a rectangular box indicator instead of the arrow indicator.
   final bool hasBoxIndicator;
+
+  /// Explicit width for the slider widget.
   final double? width;
+
+  /// Explicit height for the slider widget.
   final double? height;
 
+  /// Creates an [XPSlider].
   const XPSlider({
     super.key,
     required this.value,
@@ -33,6 +54,7 @@ class XPSlider extends StatefulWidget {
   @override
   State<XPSlider> createState() => _XPSliderState();
 }
+
 
 class _XPSliderState extends State<XPSlider> {
   bool _isFocused = false;
@@ -178,7 +200,7 @@ class _XPSliderState extends State<XPSlider> {
 class _XPSliderTrackPainter extends CustomPainter {
   final bool isVertical;
 
-  _XPSliderTrackPainter({required this.isVertical});
+  const _XPSliderTrackPainter({required this.isVertical});
 
   @override
   void paint(Canvas canvas, Size size) {

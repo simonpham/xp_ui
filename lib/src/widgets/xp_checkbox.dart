@@ -6,13 +6,25 @@ import '../svg/xp_svg_image.dart';
 import '../theme/xp_theme.dart';
 
 /// A Windows XP styled Checkbox widget matching XP.css.
+///
+/// Displays a sunken square checkbox populated with a vector checkmark when checked.
 class XPCheckbox extends StatefulWidget {
+  /// Whether the checkbox is currently checked.
   final bool value;
+
+  /// Callback invoked when the checkbox value changes.
   final ValueChanged<bool>? onChanged;
+
+  /// Optional text label displayed next to the checkbox.
   final String? label;
+
+  /// Whether the checkbox is enabled and interactive.
   final bool enabled;
+
+  /// Whether the checkbox should automatically focus when mounted.
   final bool autofocus;
 
+  /// Creates an [XPCheckbox].
   const XPCheckbox({
     super.key,
     required this.value,
@@ -25,6 +37,7 @@ class XPCheckbox extends StatefulWidget {
   @override
   State<XPCheckbox> createState() => _XPCheckboxState();
 }
+
 
 class _XPCheckboxState extends State<XPCheckbox> {
   bool _isHovered = false;

@@ -8,12 +8,22 @@ import '../theme/xp_theme.dart';
 
 /// Item node data structure for [XPTreeView].
 class XPTreeItem {
+  /// The label displayed for this node.
   final String label;
+
+  /// Optional custom leading icon widget.
   final Widget? icon;
+
+  /// Child nodes beneath this item.
   final List<XPTreeItem> children;
+
+  /// Whether this tree node is currently expanded.
   final bool isExpanded;
+
+  /// Optional unique identifier for this tree item.
   final Object? id;
 
+  /// Creates an [XPTreeItem].
   const XPTreeItem({
     required this.label,
     this.icon,
@@ -22,6 +32,7 @@ class XPTreeItem {
     this.id,
   });
 
+  /// Creates a copy of this [XPTreeItem] with given fields replaced.
   XPTreeItem copyWith({
     String? label,
     Widget? icon,
@@ -37,19 +48,50 @@ class XPTreeItem {
       id: id ?? this.id,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is XPTreeItem &&
+          runtimeType == other.runtimeType &&
+          label == other.label &&
+          isExpanded == other.isExpanded &&
+          id == other.id;
+
+  @override
+  int get hashCode => Object.hash(label, isExpanded, id);
+
+  @override
+  String toString() => 'XPTreeItem(label: $label, isExpanded: $isExpanded, id: $id)';
 }
 
 /// Authentic Windows XP TreeView widget with optional dotted connecting lines.
 class XPTreeView extends StatelessWidget {
+  /// Root items in the hierarchical tree.
   final List<XPTreeItem> items;
+
+  /// Currently selected tree node.
   final XPTreeItem? selectedItem;
+
+  /// Callback invoked when a tree item is selected/tapped.
   final ValueChanged<XPTreeItem>? onItemTap;
+
+  /// Callback invoked when an item is expanded or collapsed.
   final ValueChanged<XPTreeItem>? onItemToggle;
+
+  /// Explicit width for the tree view container.
   final double? width;
+
+  /// Explicit height for the tree view container.
   final double? height;
+
+  /// Inner padding inside the tree view container.
   final EdgeInsetsGeometry padding;
+
+  /// Whether to render Windows XP classic dotted hierarchy lines (defaults to true).
   final bool showLines;
 
+  /// Creates an [XPTreeView].
   const XPTreeView({
     super.key,
     required this.items,
@@ -62,6 +104,7 @@ class XPTreeView extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
     this.showLines = true,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +299,7 @@ class _XPTreeNodeTileState extends State<_XPTreeNodeTile> {
 class _XPTreeTogglePainter extends CustomPainter {
   final bool isExpanded;
 
-  _XPTreeTogglePainter({required this.isExpanded});
+  const _XPTreeTogglePainter({required this.isExpanded});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -295,7 +338,7 @@ class _XPTreeDottedConnectorPainter extends CustomPainter {
   final int depth;
   final bool isLastChild;
 
-  _XPTreeDottedConnectorPainter({
+  const _XPTreeDottedConnectorPainter({
     required this.depth,
     this.isLastChild = false,
   });
@@ -334,6 +377,7 @@ extension on Canvas {
     drawRect(Rect.fromLTWH(offset.dx, offset.dy, 1, 1), paint);
   }
 }
+
 
 
 

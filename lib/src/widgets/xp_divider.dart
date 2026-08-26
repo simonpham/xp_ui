@@ -4,9 +4,13 @@ import '../theme/xp_theme.dart';
 
 /// Authentic 3D Vertical Divider matching XP.css vertical-bar.
 class XPVerticalDivider extends StatelessWidget {
+  /// Height of the vertical divider (defaults to 20.0).
   final double height;
+
+  /// Width of the vertical divider (defaults to 4.0).
   final double width;
 
+  /// Creates an [XPVerticalDivider].
   const XPVerticalDivider({
     super.key,
     this.height = 20.0,
@@ -45,9 +49,13 @@ class XPVerticalDivider extends StatelessWidget {
 
 /// Authentic 3D Horizontal Divider.
 class XPHorizontalDivider extends StatelessWidget {
+  /// Explicit width for the divider.
   final double? width;
+
+  /// Vertical margin around the divider.
   final EdgeInsetsGeometry margin;
 
+  /// Creates an [XPHorizontalDivider].
   const XPHorizontalDivider({
     super.key,
     this.width,
@@ -69,3 +77,4 @@ class XPHorizontalDivider extends StatelessWidget {
     );
   }
 }
+

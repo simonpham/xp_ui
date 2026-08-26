@@ -5,16 +5,35 @@ import '../painters/xp_painters.dart';
 import '../theme/xp_theme.dart';
 
 /// Authentic Windows XP Button widget matching XP.css.
+///
+/// Features classic XP 3D gradient background, hover glow, focus ring,
+/// active pressed gradient, and disabled styling.
 class XPButton extends StatefulWidget {
+  /// Callback invoked when the button is tapped or triggered via Space/Enter key.
   final VoidCallback? onPressed;
+
+  /// Custom child widget to display inside the button.
   final Widget? child;
+
+  /// Text label to display inside the button if [child] is not specified.
   final String? label;
+
+  /// Minimum width of the button (defaults to 75.0 per Windows XP standards).
   final double minWidth;
+
+  /// Minimum height of the button (defaults to 23.0 per Windows XP standards).
   final double minHeight;
+
+  /// Padding around the button content.
   final EdgeInsetsGeometry padding;
+
+  /// Whether the button is enabled.
   final bool enabled;
+
+  /// Whether the button should automatically focus when mounted.
   final bool autofocus;
 
+  /// Creates an [XPButton].
   const XPButton({
     super.key,
     this.onPressed,
@@ -30,6 +49,7 @@ class XPButton extends StatefulWidget {
   @override
   State<XPButton> createState() => _XPButtonState();
 }
+
 
 class _XPButtonState extends State<XPButton> {
   bool _isHovered = false;
