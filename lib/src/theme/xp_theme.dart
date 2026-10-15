@@ -1,39 +1,92 @@
 import 'package:flutter/widgets.dart';
 
-/// XP design system colors matching XP.css (Lunar Blue / Royale theme).
+/// Windows XP (Luna Blue) color tokens, matching XP.css.
+///
+/// All values are `static const`, so they can be used in `const` widgets.
 class XPColors {
   XPColors._();
 
+  /// Default dialog / window surface color (`#ECE9D8`).
   static const Color surface = Color(0xFFECE9D8);
+
+  /// 3D highlight edge color (white).
   static const Color buttonHighlight = Color(0xFFFFFFFF);
+
+  /// Classic button face gray (`#DFDFDF`).
   static const Color buttonFace = Color(0xFFDFDFDF);
+
+  /// 3D shadow edge color (`#808080`).
   static const Color buttonShadow = Color(0xFF808080);
+
+  /// Near-black window frame color (`#0A0A0A`).
   static const Color windowFrame = Color(0xFF0A0A0A);
+
+  /// Primary selection / dialog blue (`#2267CB`).
   static const Color dialogBlue = Color(0xFF2267CB);
+
+  /// Lighter dialog blue (`#1084D0`).
   static const Color dialogBlueLight = Color(0xFF1084D0);
+
+  /// Hyperlink blue (`#0000FF`).
   static const Color linkBlue = Color(0xFF0000FF);
+
+  /// Border color of text inputs, list boxes and tree views (`#7F9DB9`).
   static const Color inputBorder = Color(0xFF7F9DB9);
+
+  /// Border color of enabled radio buttons and checkboxes (`#1D5281`).
   static const Color radioBorder = Color(0xFF1D5281);
+
+  /// Border color of disabled controls (`#CAC8BB`).
   static const Color radioBorderDisabled = Color(0xFFCAC8BB);
+
+  /// Group box legend text color (`#0046D5`).
   static const Color legendColor = Color(0xFF0046D5);
+
+  /// Tab and tab panel border color (`#919B9C`).
   static const Color tabBorder = Color(0xFF919B9C);
+
+  /// Orange top border of hovered / selected tabs (`#E68B2C`).
   static const Color tabHoverTop = Color(0xFFE68B2C);
+
+  /// Yellow glow below the top border of hovered / selected tabs (`#FFC73C`).
   static const Color tabHoverTopGlow = Color(0xFFFFC73C);
+
+  /// Progress bar border color (`#686868`).
   static const Color progressBorder = Color(0xFF686868);
+
+  /// Dark blue push button border (`#003C74`).
   static const Color buttonBorder = Color(0xFF003C74);
+
+  /// Default text color (black).
   static const Color text = Color(0xFF000000);
+
+  /// Embossed shadow drawn under disabled text (white).
   static const Color textDisabledShadow = Color(0xFFFFFFFF);
+
+  /// Disabled text color (`#808080`).
   static const Color textDisabled = Color(0xFF808080);
 
   // XP Window border shades (6-tier inset border)
+  /// Window frame border shade 1 of 6 (outermost, `#00138C`).
   static const Color windowBorder1 = Color(0xFF00138C);
+
+  /// Window frame border shade 2 of 6 (`#0831D9`).
   static const Color windowBorder2 = Color(0xFF0831D9);
+
+  /// Window frame border shade 3 of 6 (`#001EA0`).
   static const Color windowBorder3 = Color(0xFF001EA0);
+
+  /// Window frame border shade 4 of 6 (`#166AEE`).
   static const Color windowBorder4 = Color(0xFF166AEE);
+
+  /// Window frame border shade 5 of 6 (`#003BDA`).
   static const Color windowBorder5 = Color(0xFF003BDA);
+
+  /// Window frame border shade 6 of 6 (innermost, `#0855DD`).
   static const Color windowBorder6 = Color(0xFF0855DD);
 
   // Title bar gradient colors
+  /// Vertical gradient stops of the active Luna title bar.
   static const List<Color> titleBarGradient = [
     Color(0xFF0997FF),
     Color(0xFF0053EE),
@@ -46,28 +99,36 @@ class XPColors {
   ];
 
   // Button normal gradient — rgba(255,255,255) 0%, rgba(236,235,229) 86%, rgba(216,208,196) 100%
+  /// Push button background gradient (normal state).
   static const List<Color> buttonGradient = [
     Color(0xFFFFFFFF),
     Color(0xFFECEBE5),
     Color(0xFFD8D0C4),
   ];
+
+  /// Stops for [buttonGradient].
   static const List<double> buttonGradientStops = [0.0, 0.86, 1.0];
 
   // Button active gradient — #CDCAC3 0%, #E3E3DB 8%, #E5E5DE 94%, #F2F2F1 100%
+  /// Push button background gradient while pressed.
   static const List<Color> buttonActiveGradient = [
     Color(0xFFCDCAC3),
     Color(0xFFE3E3DB),
     Color(0xFFE5E5DE),
     Color(0xFFF2F2F1),
   ];
+
+  /// Stops for [buttonActiveGradient].
   static const List<double> buttonActiveGradientStops = [0.0, 0.08, 0.94, 1.0];
 
   // Radio / Checkbox background gradient
+  /// Checkbox / radio button background gradient.
   static const List<Color> controlBgGradient = [
     Color(0xFFDCDCD7),
     Color(0xFFFFFFFF),
   ];
 
+  /// Checkbox / radio button background gradient while pressed.
   static const List<Color> controlBgActiveGradient = [
     Color(0xFFB0B0A7),
     Color(0xFFE3E1D2),
@@ -75,21 +136,26 @@ class XPColors {
 
   // Tab gradient — matches _tabs.scss exactly
   // rgba(255,255,255) 0%, rgba(250,250,249) 26%, rgba(240,240,234) 95%, rgba(236,235,229) 100%
+  /// Unselected tab background gradient.
   static const List<Color> tabGradient = [
     Color(0xFFFFFFFF),
     Color(0xFFFAFAF9),
     Color(0xFFF0F0EA),
     Color(0xFFECEBE5),
   ];
+
+  /// Stops for [tabGradient].
   static const List<double> tabGradientStops = [0.0, 0.26, 0.95, 1.0];
 
   // [role=tabpanel] box-shadow inner colours
+  /// Tab panel background gradient.
   static const List<Color> tabPanelGradient = [
     Color(0xFFFCFCFE),
     Color(0xFFF4F3EE),
   ];
 
   // Progress bar green block gradient
+  /// Vertical gradient of the green progress bar blocks.
   static const List<Color> progressBarGradient = [
     Color(0xFFACEDAD),
     Color(0xFF7BE47D),

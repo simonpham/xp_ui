@@ -1,7 +1,20 @@
-/// xp_dart library
+/// Authentic Windows XP (Luna Blue) widgets for Flutter.
 ///
-/// A faithful Flutter port of XP.css (Windows XP design system).
-/// Built with zero dependencies on material.dart or cupertino.dart.
+/// A faithful port of [XP.css](https://github.com/botoxparty/XP.css), built
+/// only on `package:flutter/widgets.dart` and custom painters, with no
+/// dependency on `material.dart` or `cupertino.dart`.
+///
+/// ```dart
+/// import 'package:flutter/widgets.dart';
+/// import 'package:xp_dart/xp_dart.dart';
+///
+/// XPWindow(
+///   titleText: 'My First Program',
+///   child: XPWindowBody(
+///     child: XPButton(label: 'OK', onPressed: () {}),
+///   ),
+/// )
+/// ```
 library;
 
 // Theme & Colors

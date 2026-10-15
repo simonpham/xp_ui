@@ -1,19 +1,25 @@
-/// SVG Raw Strings extracted directly from XP.css/themes/XP/icon/
+/// Raw SVG markup for the Windows XP icons, extracted from XP.css
+/// (`themes/XP/icon/`).
+///
+/// Render one with `XPSvgImage`.
 class XPSvgAssets {
   XPSvgAssets._();
 
+  /// Checkbox checkmark icon. SVG markup.
   static const String checkmarkSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 11 11" shape-rendering="crispEdges">
 <path stroke="#22a122" d="M8 2h1M7 3h2M2 4h1M6 4h3M2 5h2M5 5h3M2 6h5M3 7h3M4 8h1" />
 </svg>
 ''';
 
+  /// Disabled checkbox checkmark icon. SVG markup.
   static const String checkmarkDisabledSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 11 11" shape-rendering="crispEdges">
 <path stroke="#cac8bb" d="M8 2h1M7 3h2M2 4h1M6 4h3M2 5h2M5 5h3M2 6h5M3 7h3M4 8h1" />
 </svg>
 ''';
 
+  /// Selected radio button dot icon. SVG markup.
   static const String radioDotSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 5 5" shape-rendering="crispEdges">
 <path stroke="#a9dca6" d="M1 0h1M0 1h1" />
@@ -36,6 +42,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Disabled selected radio button dot icon. SVG markup.
   static const String radioDotDisabledSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 5 5" shape-rendering="crispEdges">
 <path stroke="#e8e6da" d="M1 0h1M0 1h1" />
@@ -54,6 +61,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Dropdown arrow button. SVG markup.
   static const String dropdownSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 15 17" shape-rendering="crispEdges">
 <path stroke="#e6eefc" d="M0 0h1" />
@@ -136,6 +144,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Dropdown arrow button (hovered). SVG markup.
   static const String dropdownHoverSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 15 17" shape-rendering="crispEdges">
 <path stroke="#cfdbec" d="M0 0h1" />
@@ -219,6 +228,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Dropdown arrow button (pressed). SVG markup.
   static const String dropdownActiveSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 15 17" shape-rendering="crispEdges">
 <path stroke="#bbc2dc" d="M0 0h1" />
@@ -316,6 +326,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar close button. SVG markup.
   static const String closeSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#b3c4ef" d="M1 0h1M19 0h1M0 1h1M20 1h1M0 19h1M20 19h1M1 20h1M19 20h1" />
@@ -603,6 +614,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar close button (hovered). SVG markup.
   static const String closeHoverSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#b5c6ef" d="M1 0h1M19 0h1M0 1h1M20 1h1M0 19h1M20 19h1M1 20h1M19 20h1" />
@@ -868,6 +880,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar close button (pressed). SVG markup.
   static const String closeActiveSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#a7bced" d="M1 0h1M0 1h1" />
@@ -1047,6 +1060,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar minimize button. SVG markup.
   static const String minimizeSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#6696eb" d="M1 0h1M19 0h1" />
@@ -1368,6 +1382,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar minimize button (hovered). SVG markup.
   static const String minimizeHoverSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#93b1ed" d="M1 0h1M19 0h1" />
@@ -1672,6 +1687,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar minimize button (pressed). SVG markup.
   static const String minimizeActiveSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#93b1ed" d="M1 0h1M19 0h1" />
@@ -1825,6 +1841,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar maximize button. SVG markup.
   static const String maximizeSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#6696eb" d="M1 0h1" />
@@ -2117,6 +2134,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar maximize button (hovered). SVG markup.
   static const String maximizeHoverSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#afc2ef" d="M1 0h1M19 0h1M0 1h1M20 1h1M0 19h1M20 19h1M1 20h1M19 20h1" />
@@ -2396,6 +2414,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar maximize button (pressed). SVG markup.
   static const String maximizeActiveSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#b3c4ef" d="M1 0h1M19 0h1M0 1h1M20 1h1M0 19h1M20 19h1M1 20h1" />
@@ -2537,6 +2556,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar restore button. SVG markup.
   static const String restoreSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
   <path stroke="#6696eb" d="M1 0h1m17 0h1"/>
@@ -2891,6 +2911,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar restore button (hovered). SVG markup.
   static const String restoreHoverSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#93b1ed" d="M1 0h1M19 0h1" />
@@ -3225,6 +3246,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar restore button (pressed). SVG markup.
   static const String restoreActiveSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#93b1ed" d="M1 0h1M19 0h1" />
@@ -3407,6 +3429,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar help button. SVG markup.
   static const String helpSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#b5c6ef" d="M1 0h1M19 0h1M0 1h1M20 1h1M0 19h1M20 19h1M1 20h1M19 20h1" />
@@ -3730,6 +3753,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar help button (hovered). SVG markup.
   static const String helpHoverSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#93b1ee" d="M1 0h1" />
@@ -4049,6 +4073,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Title bar help button (pressed). SVG markup.
   static const String helpActiveSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 21 21" shape-rendering="crispEdges">
 <path stroke="#a7bdef" d="M1 0h1" />
@@ -4244,6 +4269,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Scrollbar up arrow button icon. SVG markup.
   static const String scrollArrowUpSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 17 17" shape-rendering="crispEdges">
 <path stroke="#eeede5" d="M0 0h1M16 0h1M0 1h1M0 2h1M0 3h1M0 4h1M0 5h1M0 6h1M0 7h1M0 8h1M0 9h1M0 10h1M0 11h1M0 12h1M0 13h1M0 14h1M0 15h1M16 15h1M0 16h1M16 16h1" />
@@ -4368,6 +4394,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Scrollbar down arrow button icon. SVG markup.
   static const String scrollArrowDownSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 17 17" shape-rendering="crispEdges">
 <path stroke="#eeede5" d="M0 0h1M16 0h1M0 1h1M0 2h1M0 3h1M0 4h1M0 5h1M0 6h1M0 7h1M0 8h1M0 9h1M0 10h1M0 11h1M0 12h1M0 13h1M0 14h1M0 15h1M16 15h1M0 16h1M16 16h1" />
@@ -4488,6 +4515,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Scrollbar left arrow button icon. SVG markup.
   static const String scrollArrowLeftSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 17 17" shape-rendering="crispEdges">
 <path stroke="#eeede5" d="M0 0h17M16 1h1M16 15h1M16 16h1" />
@@ -4607,6 +4635,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Scrollbar right arrow button icon. SVG markup.
   static const String scrollArrowRightSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 17 17" shape-rendering="crispEdges">
 <path stroke="#eeede5" d="M0 0h17M16 1h1M16 15h1M16 16h1" />
@@ -4729,6 +4758,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Slider thumb (arrow pointer style) icon. SVG markup.
   static const String indicatorHorizontalSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 11 21" shape-rendering="crispEdges">
 <path stroke="#becbd3" d="M1 0h1M0 1h1" />
@@ -4787,6 +4817,7 @@ class XPSvgAssets {
 </svg>
 ''';
 
+  /// Slider thumb (box style) icon. SVG markup.
   static const String indicatorRectangleHorizontalSvg = r'''
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 11 22" shape-rendering="crispEdges">
 <path stroke="#f2f1e7" d="M0 0h1M10 0h1M0 21h1M10 21h1" />
@@ -4833,6 +4864,7 @@ class XPSvgAssets {
 ''';
 
   /// All embedded SVG asset strings.
+  /// Every SVG in this class, used by `XPSvgImage.preloadAll()`.
   static const List<String> all = [
     checkmarkSvg,
     checkmarkDisabledSvg,
