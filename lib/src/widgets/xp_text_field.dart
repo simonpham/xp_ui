@@ -5,6 +5,9 @@ import '../theme/xp_theme.dart';
 
 /// Minimal TextSelectionControls for XPTextField using only package:flutter/widgets.dart.
 class XPTextSelectionControls extends TextSelectionControls {
+  /// Creates an [XPTextSelectionControls].
+  XPTextSelectionControls();
+
   @override
   Widget buildHandle(
       BuildContext context, TextSelectionHandleType type, double textLineHeight,
