@@ -46,7 +46,6 @@ class XPRadioButton<T> extends StatefulWidget {
   State<XPRadioButton<T>> createState() => _XPRadioButtonState<T>();
 }
 
-
 class _XPRadioButtonState<T> extends State<XPRadioButton<T>> {
   bool _isHovered = false;
   bool _isPressed = false;
@@ -92,14 +91,26 @@ class _XPRadioButtonState<T> extends State<XPRadioButton<T>> {
         return KeyEventResult.ignored;
       },
       child: GestureDetector(
-        onTapDown: !_effectiveEnabled ? null : (_) => setState(() => _isPressed = true),
-        onTapUp: !_effectiveEnabled ? null : (_) => setState(() => _isPressed = false),
-        onTapCancel: !_effectiveEnabled ? null : () => setState(() => _isPressed = false),
+        onTapDown: !_effectiveEnabled
+            ? null
+            : (_) => setState(() => _isPressed = true),
+        onTapUp: !_effectiveEnabled
+            ? null
+            : (_) => setState(() => _isPressed = false),
+        onTapCancel: !_effectiveEnabled
+            ? null
+            : () => setState(() => _isPressed = false),
         onTap: _handleTap,
         child: MouseRegion(
-          cursor: _effectiveEnabled ? SystemMouseCursors.click : SystemMouseCursors.basic,
-          onEnter: !_effectiveEnabled ? null : (_) => setState(() => _isHovered = true),
-          onExit: !_effectiveEnabled ? null : (_) => setState(() => _isHovered = false),
+          cursor: _effectiveEnabled
+              ? SystemMouseCursors.click
+              : SystemMouseCursors.basic,
+          onEnter: !_effectiveEnabled
+              ? null
+              : (_) => setState(() => _isHovered = true),
+          onExit: !_effectiveEnabled
+              ? null
+              : (_) => setState(() => _isHovered = false),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -134,21 +145,23 @@ class _XPRadioButtonState<T> extends State<XPRadioButton<T>> {
                   child: CustomPaint(
                     painter: _isFocused ? const XPDottedBorderPainter() : null,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 2, vertical: 1),
                       child: Text(
                         widget.label!,
                         style: TextStyle(
                           fontFamily: 'Arial',
                           fontSize: 11,
                           height: 16 / 11,
-                          color: !_effectiveEnabled ? XPColors.textDisabled : XPColors.text,
+                          color: !_effectiveEnabled
+                              ? XPColors.textDisabled
+                              : XPColors.text,
                         ),
                       ),
                     ),
                   ),
                 ),
               ],
-
             ],
           ),
         ),
@@ -156,4 +169,3 @@ class _XPRadioButtonState<T> extends State<XPRadioButton<T>> {
     );
   }
 }
-

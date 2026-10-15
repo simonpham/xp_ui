@@ -49,7 +49,6 @@ class XPTabs extends StatelessWidget {
     this.justified = false,
   });
 
-
   @override
   Widget build(BuildContext context) {
     if (tabs.isEmpty) return const SizedBox.shrink();
@@ -61,12 +60,14 @@ class XPTabs extends StatelessWidget {
         if (event is! KeyDownEvent) return KeyEventResult.ignored;
 
         final key = event.logicalKey;
-        if (key == LogicalKeyboardKey.arrowRight || key == LogicalKeyboardKey.arrowDown) {
+        if (key == LogicalKeyboardKey.arrowRight ||
+            key == LogicalKeyboardKey.arrowDown) {
           if (safeIndex < tabs.length - 1) {
             onTabSelected(safeIndex + 1);
             return KeyEventResult.handled;
           }
-        } else if (key == LogicalKeyboardKey.arrowLeft || key == LogicalKeyboardKey.arrowUp) {
+        } else if (key == LogicalKeyboardKey.arrowLeft ||
+            key == LogicalKeyboardKey.arrowUp) {
           if (safeIndex > 0) {
             onTabSelected(safeIndex - 1);
             return KeyEventResult.handled;
@@ -149,7 +150,9 @@ class _XPTabButtonState extends State<_XPTabButton> {
         style: TextStyle(
           fontSize: 11,
           fontFamily: 'Arial',
-          color: widget.isSelected ? const Color(0xFF000000) : const Color(0xFF222222),
+          color: widget.isSelected
+              ? const Color(0xFF000000)
+              : const Color(0xFF222222),
           fontWeight: widget.isSelected ? FontWeight.normal : FontWeight.normal,
         ),
       );
@@ -222,7 +225,8 @@ class _XPTabBorderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final topPaint = Paint()
-      ..color = isHighlighted ? const Color(0xFFE68B2C) : const Color(0xFF91A7B4)
+      ..color =
+          isHighlighted ? const Color(0xFFE68B2C) : const Color(0xFF91A7B4)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
 
@@ -240,15 +244,18 @@ class _XPTabBorderPainter extends CustomPainter {
     }
 
     // Top border line
-    canvas.drawLine(const Offset(1, 0.5), Offset(size.width - 1, 0.5), topPaint);
+    canvas.drawLine(
+        const Offset(1, 0.5), Offset(size.width - 1, 0.5), topPaint);
     // Left border line
     canvas.drawLine(const Offset(0.5, 1), Offset(0.5, size.height), sidePaint);
     // Right border line
-    canvas.drawLine(Offset(size.width - 0.5, 1), Offset(size.width - 0.5, size.height), sidePaint);
+    canvas.drawLine(Offset(size.width - 0.5, 1),
+        Offset(size.width - 0.5, size.height), sidePaint);
 
     // Bottom border line (drawn ONLY for unselected tabs)
     if (!isSelected) {
-      canvas.drawLine(Offset(0, size.height - 0.5), Offset(size.width, size.height - 0.5), sidePaint);
+      canvas.drawLine(Offset(0, size.height - 0.5),
+          Offset(size.width, size.height - 0.5), sidePaint);
     }
 
     // Focused dotted outline (outline: 1px dotted #222; outline-offset: -4px)
@@ -303,8 +310,7 @@ class _XPTabPanelPainter extends CustomPainter {
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
 
     // Outer drop shadow: 1px 2px 2px 0px rgba(208,206,191,0.75)
-    final shadowPaint = Paint()
-      ..color = const Color(0xBFD0CEBF);
+    final shadowPaint = Paint()..color = const Color(0xBFD0CEBF);
     canvas.drawRect(Rect.fromLTWH(1, 2, size.width, size.height), shadowPaint);
 
     // Fill background: linear-gradient(180deg, #fcfcfe 0%, #f4f3ee 100%)
@@ -333,6 +339,3 @@ class _XPTabPanelPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _XPTabPanelPainter oldDelegate) => false;
 }
-
-
-

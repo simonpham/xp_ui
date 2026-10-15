@@ -5,7 +5,6 @@ import '../svg/xp_svg_assets.dart';
 import '../svg/xp_svg_image.dart';
 import '../theme/xp_theme.dart';
 
-
 /// Item model for [XPDropdown].
 class XPDropdownItem<T> {
   /// The underlying value of this dropdown item.
@@ -64,7 +63,6 @@ class XPDropdown<T> extends StatefulWidget {
     this.enabled = true,
     this.autofocus = false,
   });
-
 
   @override
   State<XPDropdown<T>> createState() => _XPDropdownState<T>();
@@ -127,7 +125,8 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
                   constraints: const BoxConstraints(maxHeight: 200),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFFFFF),
-                    border: Border.all(color: const Color(0xFF7F9DB9), width: 1),
+                    border:
+                        Border.all(color: const Color(0xFF7F9DB9), width: 1),
                     boxShadow: const [
                       BoxShadow(
                         color: Color(0x40000000),
@@ -176,14 +175,16 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
 
   void _selectNext() {
     if (widget.items.isEmpty || !_effectiveEnabled) return;
-    final currentIndex = widget.items.indexWhere((item) => item.value == widget.value);
+    final currentIndex =
+        widget.items.indexWhere((item) => item.value == widget.value);
     final nextIndex = (currentIndex + 1).clamp(0, widget.items.length - 1);
     widget.onChanged?.call(widget.items[nextIndex].value);
   }
 
   void _selectPrevious() {
     if (widget.items.isEmpty || !_effectiveEnabled) return;
-    final currentIndex = widget.items.indexWhere((item) => item.value == widget.value);
+    final currentIndex =
+        widget.items.indexWhere((item) => item.value == widget.value);
     final prevIndex = (currentIndex - 1).clamp(0, widget.items.length - 1);
     widget.onChanged?.call(widget.items[prevIndex].value);
   }
@@ -203,9 +204,8 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedItem = widget.items
-        .where((item) => item.value == widget.value)
-        .firstOrNull;
+    final selectedItem =
+        widget.items.where((item) => item.value == widget.value).firstOrNull;
 
     return Focus(
       focusNode: _focusNode,
@@ -235,22 +235,34 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
         child: GestureDetector(
           onTap: _toggleDropdown,
           child: MouseRegion(
-            cursor: _effectiveEnabled ? SystemMouseCursors.click : SystemMouseCursors.basic,
-            onEnter: !_effectiveEnabled ? null : (_) => setState(() => _isHovered = true),
-            onExit: !_effectiveEnabled ? null : (_) => setState(() => _isHovered = false),
+            cursor: _effectiveEnabled
+                ? SystemMouseCursors.click
+                : SystemMouseCursors.basic,
+            onEnter: !_effectiveEnabled
+                ? null
+                : (_) => setState(() => _isHovered = true),
+            onExit: !_effectiveEnabled
+                ? null
+                : (_) => setState(() => _isHovered = false),
             child: Container(
               height: 23,
               padding: const EdgeInsets.only(left: 4),
               decoration: BoxDecoration(
-                color: !_effectiveEnabled ? const Color(0xFFECE9D8) : const Color(0xFFFFFFFF),
+                color: !_effectiveEnabled
+                    ? const Color(0xFFECE9D8)
+                    : const Color(0xFFFFFFFF),
                 border: Border.all(
-                  color: !_effectiveEnabled ? const Color(0xFFC9C7BA) : const Color(0xFF7F9DB9),
+                  color: !_effectiveEnabled
+                      ? const Color(0xFFC9C7BA)
+                      : const Color(0xFF7F9DB9),
                   width: 1,
                 ),
                 boxShadow: _isFocused && _effectiveEnabled
                     ? const [
-                        BoxShadow(color: Color(0xFFFFFFFF), offset: Offset(2, 2)),
-                        BoxShadow(color: Color(0xFFFFFFFF), offset: Offset(-2, -2)),
+                        BoxShadow(
+                            color: Color(0xFFFFFFFF), offset: Offset(2, 2)),
+                        BoxShadow(
+                            color: Color(0xFFFFFFFF), offset: Offset(-2, -2)),
                       ]
                     : null,
               ),
@@ -258,7 +270,9 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
                 children: [
                   Expanded(
                     child: CustomPaint(
-                      painter: _isFocused && _effectiveEnabled ? const XPDottedBorderPainter() : null,
+                      painter: _isFocused && _effectiveEnabled
+                          ? const XPDottedBorderPainter()
+                          : null,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 1),
                         child: Text(
@@ -268,13 +282,14 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
                           style: TextStyle(
                             fontFamily: 'Arial',
                             fontSize: 11,
-                            color: !_effectiveEnabled ? XPColors.textDisabled : XPColors.text,
+                            color: !_effectiveEnabled
+                                ? XPColors.textDisabled
+                                : XPColors.text,
                           ),
                         ),
                       ),
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(right: 1.0),
                     child: SizedBox(
@@ -285,7 +300,6 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -295,9 +309,6 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
     );
   }
 }
-
-
-
 
 class _XPDropdownMenuItem<T> extends StatefulWidget {
   final XPDropdownItem<T> item;
@@ -328,13 +339,16 @@ class _XPDropdownMenuItemState<T> extends State<_XPDropdownMenuItem<T>> {
         onTap: widget.onTap,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
-          color: highlighted ? const Color(0xFF316AC5) : const Color(0xFFFFFFFF),
+          color:
+              highlighted ? const Color(0xFF316AC5) : const Color(0xFFFFFFFF),
           child: Text(
             widget.item.label,
             style: TextStyle(
               fontFamily: 'Arial',
               fontSize: 11,
-              color: highlighted ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
+              color: highlighted
+                  ? const Color(0xFFFFFFFF)
+                  : const Color(0xFF000000),
             ),
           ),
         ),
@@ -342,4 +356,3 @@ class _XPDropdownMenuItemState<T> extends State<_XPDropdownMenuItem<T>> {
     );
   }
 }
-

@@ -67,7 +67,8 @@ class _XPGroupBoxState extends State<XPGroupBox> {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      _legendWidth = textPainter.width + 4.0; // include 2px horizontal padding on each side
+      _legendWidth = textPainter.width +
+          4.0; // include 2px horizontal padding on each side
       _needsMeasurement = false;
     } else if (widget.legend != null) {
       _needsMeasurement = true;
@@ -92,7 +93,6 @@ class _XPGroupBoxState extends State<XPGroupBox> {
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -176,13 +176,17 @@ class _XPGroupBoxBorderPainter extends CustomPainter {
     final path = Path()
       ..moveTo(gapEnd, topInset)
       ..lineTo(rect.right - 4.0, topInset)
-      ..arcToPoint(Offset(rect.right, topInset + 4.0), radius: const Radius.circular(4.0))
+      ..arcToPoint(Offset(rect.right, topInset + 4.0),
+          radius: const Radius.circular(4.0))
       ..lineTo(rect.right, rect.bottom - 4.0)
-      ..arcToPoint(Offset(rect.right - 4.0, rect.bottom), radius: const Radius.circular(4.0))
+      ..arcToPoint(Offset(rect.right - 4.0, rect.bottom),
+          radius: const Radius.circular(4.0))
       ..lineTo(rect.left + 4.0, rect.bottom)
-      ..arcToPoint(Offset(rect.left, rect.bottom - 4.0), radius: const Radius.circular(4.0))
+      ..arcToPoint(Offset(rect.left, rect.bottom - 4.0),
+          radius: const Radius.circular(4.0))
       ..lineTo(rect.left, topInset + 4.0)
-      ..arcToPoint(Offset(rect.left + 4.0, topInset), radius: const Radius.circular(4.0))
+      ..arcToPoint(Offset(rect.left + 4.0, topInset),
+          radius: const Radius.circular(4.0))
       ..lineTo(gapStart, topInset);
 
     canvas.drawPath(path, paint);
@@ -269,4 +273,3 @@ class XPFieldRowStacked extends StatelessWidget {
     );
   }
 }
-

@@ -43,4 +43,3 @@ class XPSvgImage extends StatelessWidget {
     return ScalableImageWidget(si: si, fit: fit);
   }
 }
-

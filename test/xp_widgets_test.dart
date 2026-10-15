@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:xp_dart/xp_dart.dart';
 
-
 Widget _buildTestApp(Widget child) {
   return WidgetsApp(
     color: XPColors.surface,
@@ -42,7 +41,9 @@ void main() {
     expect(find.text('100%'), findsOneWidget);
   });
 
-  testWidgets('XPWindow renders inside unbounded height containers (SingleChildScrollView)', (tester) async {
+  testWidgets(
+      'XPWindow renders inside unbounded height containers (SingleChildScrollView)',
+      (tester) async {
     await tester.pumpWidget(
       _buildTestApp(
         SingleChildScrollView(
@@ -334,7 +335,8 @@ void main() {
     expect(find.byType(XPVerticalDivider), findsOneWidget);
   });
 
-  testWidgets('XPButton responds to keyboard Space and Enter keys', (tester) async {
+  testWidgets('XPButton responds to keyboard Space and Enter keys',
+      (tester) async {
     int tapCount = 0;
 
     await tester.pumpWidget(
@@ -403,7 +405,8 @@ void main() {
     expect(selected, 2);
   });
 
-  testWidgets('XPDropdown handles keyboard arrow keys and escape', (tester) async {
+  testWidgets('XPDropdown handles keyboard arrow keys and escape',
+      (tester) async {
     String selected = 'Apple';
 
     await tester.pumpWidget(
@@ -437,4 +440,3 @@ void main() {
     await tester.pump();
   });
 }
-

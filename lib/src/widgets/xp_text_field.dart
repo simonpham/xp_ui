@@ -123,9 +123,7 @@ class _XPTextFieldState extends State<XPTextField> {
     final textStyle = TextStyle(
       fontSize: 11,
       fontFamily: 'Arial',
-      color: widget.enabled
-          ? const Color(0xFF000000)
-          : XPColors.textDisabled,
+      color: widget.enabled ? const Color(0xFF000000) : XPColors.textDisabled,
     );
 
     return Container(
@@ -133,9 +131,7 @@ class _XPTextFieldState extends State<XPTextField> {
       height: 23,
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
       decoration: BoxDecoration(
-        color: widget.enabled
-            ? XPColors.buttonHighlight
-            : XPColors.buttonFace,
+        color: widget.enabled ? XPColors.buttonHighlight : XPColors.buttonFace,
         border: Border.all(
           color: widget.enabled
               ? XPColors.inputBorder
@@ -258,9 +254,7 @@ class _XPTextAreaState extends State<XPTextArea> {
     final textStyle = TextStyle(
       fontSize: 11,
       fontFamily: 'Arial',
-      color: widget.enabled
-          ? const Color(0xFF000000)
-          : XPColors.textDisabled,
+      color: widget.enabled ? const Color(0xFF000000) : XPColors.textDisabled,
     );
 
     return Container(
@@ -268,9 +262,7 @@ class _XPTextAreaState extends State<XPTextArea> {
       height: widget.height,
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
       decoration: BoxDecoration(
-        color: widget.enabled
-            ? XPColors.buttonHighlight
-            : XPColors.buttonFace,
+        color: widget.enabled ? XPColors.buttonHighlight : XPColors.buttonFace,
         border: Border.all(
           color: widget.enabled
               ? XPColors.inputBorder
@@ -305,5 +297,3 @@ class _XPTextAreaState extends State<XPTextArea> {
     );
   }
 }
-
-

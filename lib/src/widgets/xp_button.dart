@@ -50,7 +50,6 @@ class XPButton extends StatefulWidget {
   State<XPButton> createState() => _XPButtonState();
 }
 
-
 class _XPButtonState extends State<XPButton> {
   bool _isHovered = false;
   bool _isActive = false;
@@ -165,8 +164,6 @@ class _XPButtonState extends State<XPButton> {
               padding: widget.padding,
               alignment: Alignment.center,
               child: content,
-
-
             ),
           ),
         ),
@@ -174,4 +171,3 @@ class _XPButtonState extends State<XPButton> {
     );
   }
 }
-

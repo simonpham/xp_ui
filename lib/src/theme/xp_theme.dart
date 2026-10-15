@@ -181,7 +181,8 @@ class XPThemeData {
       );
 
   @override
-  String toString() => 'XPThemeData(surface: $surface, dialogBlue: $dialogBlue)';
+  String toString() =>
+      'XPThemeData(surface: $surface, dialogBlue: $dialogBlue)';
 }
 
 /// InheritedWidget providing [XPThemeData] down the widget tree.
@@ -207,4 +208,3 @@ class XPTheme extends InheritedWidget {
   @override
   bool updateShouldNotify(XPTheme oldWidget) => data != oldWidget.data;
 }
-

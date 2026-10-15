@@ -70,7 +70,6 @@ class XPWindow extends StatelessWidget {
     this.isFocused = true,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -128,7 +127,6 @@ class XPWindow extends StatelessWidget {
                   ],
                 );
               }
-
             },
           ),
         ),
@@ -172,8 +170,6 @@ class _XPWindowTitleBar extends StatelessWidget {
           // .title-bar { padding: 3px 5px 3px 3px }
           padding: const EdgeInsets.only(top: 3, left: 3, right: 5, bottom: 3),
           decoration: BoxDecoration(
-
-
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -281,9 +277,12 @@ class _XPTitleBarBorderPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
 
-    canvas.drawLine(const Offset(0, 0.5), Offset(size.width, 0.5), topLeftPaint);
-    canvas.drawLine(const Offset(0.5, 0), Offset(0.5, size.height), topLeftPaint);
-    canvas.drawLine(Offset(size.width - 0.5, 0), Offset(size.width - 0.5, size.height), rightPaint);
+    canvas.drawLine(
+        const Offset(0, 0.5), Offset(size.width, 0.5), topLeftPaint);
+    canvas.drawLine(
+        const Offset(0.5, 0), Offset(0.5, size.height), topLeftPaint);
+    canvas.drawLine(Offset(size.width - 0.5, 0),
+        Offset(size.width - 0.5, size.height), rightPaint);
   }
 
   @override
@@ -462,7 +461,8 @@ class _XPStatusBarInnerShadowPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _XPStatusBarInnerShadowPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _XPStatusBarInnerShadowPainter oldDelegate) =>
+      false;
 }
 
 /// Status bar field segment inside [XPStatusBar].
@@ -509,5 +509,3 @@ class XPStatusBarField extends StatelessWidget {
     );
   }
 }
-
-

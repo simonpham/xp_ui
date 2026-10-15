@@ -4,8 +4,6 @@ import 'package:flutter/widgets.dart';
 import '../painters/xp_painters.dart';
 import '../theme/xp_theme.dart';
 
-
-
 /// Item node data structure for [XPTreeView].
 class XPTreeItem {
   /// The label displayed for this node.
@@ -62,7 +60,8 @@ class XPTreeItem {
   int get hashCode => Object.hash(label, isExpanded, id);
 
   @override
-  String toString() => 'XPTreeItem(label: $label, isExpanded: $isExpanded, id: $id)';
+  String toString() =>
+      'XPTreeItem(label: $label, isExpanded: $isExpanded, id: $id)';
 }
 
 /// Authentic Windows XP TreeView widget with optional dotted connecting lines.
@@ -105,15 +104,17 @@ class XPTreeView extends StatelessWidget {
     this.showLines = true,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return Focus(
       onKeyEvent: (node, event) {
-        if (event is! KeyDownEvent || items.isEmpty) return KeyEventResult.ignored;
+        if (event is! KeyDownEvent || items.isEmpty) {
+          return KeyEventResult.ignored;
+        }
 
         final key = event.logicalKey;
-        if (key == LogicalKeyboardKey.space || key == LogicalKeyboardKey.enter) {
+        if (key == LogicalKeyboardKey.space ||
+            key == LogicalKeyboardKey.enter) {
           if (selectedItem != null && onItemTap != null) {
             onItemTap!(selectedItem!);
             return KeyEventResult.handled;
@@ -155,7 +156,6 @@ class XPTreeView extends StatelessWidget {
     );
   }
 }
-
 
 class _XPTreeNodeTile extends StatefulWidget {
   final XPTreeItem item;
@@ -240,7 +240,6 @@ class _XPTreeNodeTileState extends State<_XPTreeNodeTile> {
                   )
                 else if (widget.depth > 0)
                   const SizedBox(width: 4),
-
                 if (widget.item.icon != null) ...[
                   widget.item.icon!,
                   const SizedBox(width: 4),
@@ -249,9 +248,13 @@ class _XPTreeNodeTileState extends State<_XPTreeNodeTile> {
                   child: GestureDetector(
                     onTap: () => widget.onItemTap?.call(widget.item),
                     child: CustomPaint(
-                      painter: isSelected ? const XPDottedBorderPainter(color: Color(0xFFFFFFFF)) : null,
+                      painter: isSelected
+                          ? const XPDottedBorderPainter(
+                              color: Color(0xFFFFFFFF))
+                          : null,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 3, vertical: 1),
                         color: isSelected ? XPColors.dialogBlue : null,
                         child: Text(
                           widget.item.label,
@@ -377,8 +380,3 @@ extension on Canvas {
     drawRect(Rect.fromLTWH(offset.dx, offset.dy, 1, 1), paint);
   }
 }
-
-
-
-
-

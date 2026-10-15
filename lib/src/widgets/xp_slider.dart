@@ -4,7 +4,6 @@ import '../painters/xp_painters.dart';
 import '../svg/xp_svg_assets.dart';
 import '../svg/xp_svg_image.dart';
 
-
 /// Authentic Windows XP Slider / Range control widget matching XP.css.
 ///
 /// Supports horizontal and vertical orientations, continuous or discrete stepped values,
@@ -55,12 +54,10 @@ class XPSlider extends StatefulWidget {
   State<XPSlider> createState() => _XPSliderState();
 }
 
-
 class _XPSliderState extends State<XPSlider> {
   bool _isFocused = false;
 
   void _updateValueFromOffset(Offset localPosition, Size size) {
-
     if (widget.onChanged == null) return;
 
     double normalized;
@@ -78,7 +75,8 @@ class _XPSliderState extends State<XPSlider> {
 
     if (widget.divisions != null && widget.divisions! > 0) {
       final stepSize = (widget.max - widget.min) / widget.divisions!;
-      newValue = ((newValue - widget.min) / stepSize).round() * stepSize + widget.min;
+      newValue =
+          ((newValue - widget.min) / stepSize).round() * stepSize + widget.min;
     }
 
     newValue = newValue.clamp(widget.min, widget.max);
@@ -91,7 +89,8 @@ class _XPSliderState extends State<XPSlider> {
     final double defaultHeight = widget.isVertical ? 150.0 : 21.0;
 
     final normalizedValue =
-        ((widget.value - widget.min) / (widget.max - widget.min)).clamp(0.0, 1.0);
+        ((widget.value - widget.min) / (widget.max - widget.min))
+            .clamp(0.0, 1.0);
 
     return Focus(
       canRequestFocus: widget.onChanged != null,
@@ -107,9 +106,11 @@ class _XPSliderState extends State<XPSlider> {
 
         double? targetValue;
         final key = event.logicalKey;
-        if (key == LogicalKeyboardKey.arrowRight || key == LogicalKeyboardKey.arrowUp) {
+        if (key == LogicalKeyboardKey.arrowRight ||
+            key == LogicalKeyboardKey.arrowUp) {
           targetValue = widget.value + step;
-        } else if (key == LogicalKeyboardKey.arrowLeft || key == LogicalKeyboardKey.arrowDown) {
+        } else if (key == LogicalKeyboardKey.arrowLeft ||
+            key == LogicalKeyboardKey.arrowDown) {
           targetValue = widget.value - step;
         } else if (key == LogicalKeyboardKey.pageUp) {
           targetValue = widget.value + (widget.max - widget.min) * 0.2;
@@ -131,7 +132,6 @@ class _XPSliderState extends State<XPSlider> {
       },
       child: CustomPaint(
         painter: _isFocused ? const XPDottedBorderPainter() : null,
-
         child: SizedBox(
           width: widget.width ?? defaultWidth,
           height: widget.height ?? defaultHeight,
@@ -139,7 +139,8 @@ class _XPSliderState extends State<XPSlider> {
             builder: (context, constraints) {
               final size = Size(constraints.maxWidth, constraints.maxHeight);
               final thumbX = 5.5 + (size.width - 11) * normalizedValue;
-              final thumbY = size.height - 5.5 - (size.height - 11) * normalizedValue;
+              final thumbY =
+                  size.height - 5.5 - (size.height - 11) * normalizedValue;
 
               String svgString;
               if (widget.hasBoxIndicator) {
@@ -149,16 +150,20 @@ class _XPSliderState extends State<XPSlider> {
               }
 
               return GestureDetector(
-                onPanStart: (details) => _updateValueFromOffset(details.localPosition, size),
-                onPanUpdate: (details) => _updateValueFromOffset(details.localPosition, size),
-                onTapDown: (details) => _updateValueFromOffset(details.localPosition, size),
+                onPanStart: (details) =>
+                    _updateValueFromOffset(details.localPosition, size),
+                onPanUpdate: (details) =>
+                    _updateValueFromOffset(details.localPosition, size),
+                onTapDown: (details) =>
+                    _updateValueFromOffset(details.localPosition, size),
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
                     // Track line
                     Positioned.fill(
                       child: CustomPaint(
-                        painter: _XPSliderTrackPainter(isVertical: widget.isVertical),
+                        painter: _XPSliderTrackPainter(
+                            isVertical: widget.isVertical),
                       ),
                     ),
                     // SVG Thumb
@@ -195,7 +200,6 @@ class _XPSliderState extends State<XPSlider> {
     );
   }
 }
-
 
 class _XPSliderTrackPainter extends CustomPainter {
   final bool isVertical;
@@ -279,4 +283,3 @@ class _XPSliderTrackPainter extends CustomPainter {
   bool shouldRepaint(covariant _XPSliderTrackPainter oldDelegate) =>
       oldDelegate.isVertical != isVertical;
 }
-

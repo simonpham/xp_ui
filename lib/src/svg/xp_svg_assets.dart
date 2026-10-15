@@ -4864,4 +4864,3 @@ class XPSvgAssets {
     indicatorRectangleHorizontalSvg,
   ];
 }
-

@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('Verify zero imports of material.dart or cupertino.dart in example/lib/', () {
+  test('Verify zero imports of material.dart or cupertino.dart in example/lib/',
+      () {
     final libDir = Directory('lib');
     expect(libDir.existsSync(), isTrue);
 

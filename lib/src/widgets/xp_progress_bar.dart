@@ -101,13 +101,15 @@ class _XPProgressBarFramePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    final outerRRect = RRect.fromRectAndRadius(rect.deflate(0.5), const Radius.circular(4));
+    final outerRRect =
+        RRect.fromRectAndRadius(rect.deflate(0.5), const Radius.circular(4));
 
     // Fill white track background
     canvas.drawRRect(outerRRect, Paint()..color = const Color(0xFFFFFFFF));
 
     // CSS: box-shadow: inset 0px 0px 1px 0px rgba(104, 104, 104, 1)
-    final shadowRRect = RRect.fromRectAndRadius(rect.deflate(1.0), const Radius.circular(3));
+    final shadowRRect =
+        RRect.fromRectAndRadius(rect.deflate(1.0), const Radius.circular(3));
     canvas.drawRRect(
       shadowRRect,
       Paint()
@@ -129,8 +131,3 @@ class _XPProgressBarFramePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _XPProgressBarFramePainter oldDelegate) => false;
 }
-
-
-
-
-

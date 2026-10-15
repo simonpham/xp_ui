@@ -77,4 +77,3 @@ class XPHorizontalDivider extends StatelessWidget {
     );
   }
 }
-

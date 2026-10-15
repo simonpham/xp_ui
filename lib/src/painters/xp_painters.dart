@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 
 import '../theme/xp_theme.dart';
 
-
 /// Low-level custom painter for Windows XP Window borders and title bar background.
 class XPWindowPainter extends CustomPainter {
   /// Corner radius for the window frame (defaults to 8.0).
@@ -47,9 +46,11 @@ class XPWindowPainter extends CustomPainter {
       final topLeftPath = Path()
         ..moveTo(rect.left + 0.5, rect.bottom - 0.5)
         ..lineTo(rect.left + 0.5, rect.top + r)
-        ..arcToPoint(Offset(rect.left + r, rect.top + 0.5), radius: Radius.circular(r))
+        ..arcToPoint(Offset(rect.left + r, rect.top + 0.5),
+            radius: Radius.circular(r))
         ..lineTo(rect.right - r, rect.top + 0.5)
-        ..arcToPoint(Offset(rect.right - 0.5, rect.top + r), radius: Radius.circular(r));
+        ..arcToPoint(Offset(rect.right - 0.5, rect.top + r),
+            radius: Radius.circular(r));
 
       strokePaint.color = _topColors[i];
       canvas.drawPath(topLeftPath, strokePaint);
@@ -158,7 +159,8 @@ class XPButtonPainter extends CustomPainter {
     }
 
     // Background gradient fill
-    final LinearGradient gradient = isActive ? _activeGradient : _normalGradient;
+    final LinearGradient gradient =
+        isActive ? _activeGradient : _normalGradient;
     fillPaint.shader = gradient.createShader(rect);
     canvas.drawRRect(rrect, fillPaint);
 
@@ -175,22 +177,33 @@ class XPButtonPainter extends CustomPainter {
       // hover box-shadow:
       //   inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a
       final shadowPaint = Paint()..style = PaintingStyle.stroke;
-      _drawInsetShadow(canvas, size, 1, 1, 1, const Color(0xFFFFF0CF), shadowPaint);
-      _drawInsetShadow(canvas, size, 1, 2, 1, const Color(0xFFFDD889), shadowPaint);
-      _drawInsetShadow(canvas, size, 2, 2, 1, const Color(0xFFFBC761), shadowPaint);
-      _drawInsetShadow(canvas, size, -2, -2, 1, const Color(0xFFE5A01A), shadowPaint);
-      _drawInsetShadow(canvas, size, -1, -1, 1, const Color(0xFFE5A01A), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, 1, 1, 1, const Color(0xFFFFF0CF), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, 1, 2, 1, const Color(0xFFFDD889), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, 2, 2, 1, const Color(0xFFFBC761), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, -2, -2, 1, const Color(0xFFE5A01A), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, -1, -1, 1, const Color(0xFFE5A01A), shadowPaint);
     } else if (isFocused && !isActive) {
       // focus box-shadow:
       //   inset -1px 1px #cee7ff, inset 1px 2px #98b8ea,
       //   inset -2px 2px #bcd4f6, inset 1px -1px #89ade4, inset 2px -2px #89ade4
       final shadowPaint = Paint()..style = PaintingStyle.stroke;
-      _drawInsetShadow(canvas, size, 1, 1, 1, const Color(0xFFCEE7FF), shadowPaint);
-      _drawInsetShadow(canvas, size, 1, 2, 1, const Color(0xFF98B8EA), shadowPaint);
-      _drawInsetShadow(canvas, size, 2, 2, 1, const Color(0xFFBCD4F6), shadowPaint);
-      _drawInsetShadow(canvas, size, 1, -1, 1, const Color(0xFF89ADE4), shadowPaint);
-      _drawInsetShadow(canvas, size, -1, -1, 1, const Color(0xFF89ADE4), shadowPaint);
-      _drawInsetShadow(canvas, size, -2, -2, 1, const Color(0xFF89ADE4), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, 1, 1, 1, const Color(0xFFCEE7FF), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, 1, 2, 1, const Color(0xFF98B8EA), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, 2, 2, 1, const Color(0xFFBCD4F6), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, 1, -1, 1, const Color(0xFF89ADE4), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, -1, -1, 1, const Color(0xFF89ADE4), shadowPaint);
+      _drawInsetShadow(
+          canvas, size, -2, -2, 1, const Color(0xFF89ADE4), shadowPaint);
 
       // focus dotted inner border (CSS outline: 1px dotted #000000; outline-offset: -4px)
       const XPDottedBorderPainter(color: Color(0xFF000000), inset: 3.0)
@@ -199,24 +212,27 @@ class XPButtonPainter extends CustomPainter {
   }
 
   /// Approximates CSS `inset Xpx Ypx color` by drawing inset lines from edges.
-  void _drawInsetShadow(
-      Canvas canvas, Size size, double x, double y, double strokeW, Color color, Paint paint) {
+  void _drawInsetShadow(Canvas canvas, Size size, double x, double y,
+      double strokeW, Color color, Paint paint) {
     paint
       ..color = color
       ..strokeWidth = strokeW.abs();
 
     if (x > 0) {
-      canvas.drawLine(
-          Offset(x + 0.5, y.abs()), Offset(x + 0.5, size.height - y.abs()), paint);
+      canvas.drawLine(Offset(x + 0.5, y.abs()),
+          Offset(x + 0.5, size.height - y.abs()), paint);
     } else if (x < 0) {
       final rx = size.width + x - 0.5;
-      canvas.drawLine(Offset(rx, y.abs()), Offset(rx, size.height - y.abs()), paint);
+      canvas.drawLine(
+          Offset(rx, y.abs()), Offset(rx, size.height - y.abs()), paint);
     }
     if (y > 0) {
-      canvas.drawLine(Offset(x.abs(), y + 0.5), Offset(size.width - x.abs(), y + 0.5), paint);
+      canvas.drawLine(Offset(x.abs(), y + 0.5),
+          Offset(size.width - x.abs(), y + 0.5), paint);
     } else if (y < 0) {
       final by = size.height + y - 0.5;
-      canvas.drawLine(Offset(x.abs(), by), Offset(size.width - x.abs(), by), paint);
+      canvas.drawLine(
+          Offset(x.abs(), by), Offset(size.width - x.abs(), by), paint);
     }
   }
 
@@ -257,7 +273,8 @@ class XPProgressBarPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final innerRect = Rect.fromLTWH(0, 0, size.width, size.height);
     canvas.save();
-    canvas.clipRRect(RRect.fromRectAndRadius(innerRect, const Radius.circular(2.0)));
+    canvas.clipRRect(
+        RRect.fromRectAndRadius(innerRect, const Radius.circular(2.0)));
 
     final blockPaint = Paint();
 
@@ -351,7 +368,8 @@ class XPCheckboxPainter extends CustomPainter {
     }
 
     // Background Fill
-    final LinearGradient bgGradient = isPressed ? _pressedGradient : _normalGradient;
+    final LinearGradient bgGradient =
+        isPressed ? _pressedGradient : _normalGradient;
     canvas.drawRect(rect, Paint()..shader = bgGradient.createShader(rect));
 
     // Inner Hover Shadow: inset -2px -2px #f8b636, inset 2px 2px #fedf9c
@@ -360,19 +378,27 @@ class XPCheckboxPainter extends CustomPainter {
         ..color = const Color(0xFFFEDF9C)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.0;
-      canvas.drawLine(const Offset(1.5, 1.5), Offset(size.width - 1.5, 1.5), topLeftPaint);
-      canvas.drawLine(const Offset(1.5, 1.5), Offset(1.5, size.height - 1.5), topLeftPaint);
-      canvas.drawLine(const Offset(2.5, 2.5), Offset(size.width - 2.5, 2.5), topLeftPaint);
-      canvas.drawLine(const Offset(2.5, 2.5), Offset(2.5, size.height - 2.5), topLeftPaint);
+      canvas.drawLine(
+          const Offset(1.5, 1.5), Offset(size.width - 1.5, 1.5), topLeftPaint);
+      canvas.drawLine(
+          const Offset(1.5, 1.5), Offset(1.5, size.height - 1.5), topLeftPaint);
+      canvas.drawLine(
+          const Offset(2.5, 2.5), Offset(size.width - 2.5, 2.5), topLeftPaint);
+      canvas.drawLine(
+          const Offset(2.5, 2.5), Offset(2.5, size.height - 2.5), topLeftPaint);
 
       final bottomRightPaint = Paint()
         ..color = const Color(0xFFF8B636)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.0;
-      canvas.drawLine(Offset(size.width - 1.5, 1.5), Offset(size.width - 1.5, size.height - 1.5), bottomRightPaint);
-      canvas.drawLine(Offset(1.5, size.height - 1.5), Offset(size.width - 1.5, size.height - 1.5), bottomRightPaint);
-      canvas.drawLine(Offset(size.width - 2.5, 2.5), Offset(size.width - 2.5, size.height - 2.5), bottomRightPaint);
-      canvas.drawLine(Offset(2.5, size.height - 2.5), Offset(size.width - 2.5, size.height - 2.5), bottomRightPaint);
+      canvas.drawLine(Offset(size.width - 1.5, 1.5),
+          Offset(size.width - 1.5, size.height - 1.5), bottomRightPaint);
+      canvas.drawLine(Offset(1.5, size.height - 1.5),
+          Offset(size.width - 1.5, size.height - 1.5), bottomRightPaint);
+      canvas.drawLine(Offset(size.width - 2.5, 2.5),
+          Offset(size.width - 2.5, size.height - 2.5), bottomRightPaint);
+      canvas.drawLine(Offset(2.5, size.height - 2.5),
+          Offset(size.width - 2.5, size.height - 2.5), bottomRightPaint);
     }
 
     // Outer border: 1px solid #1d5281
@@ -429,7 +455,8 @@ class XPRadioPainter extends CustomPainter {
     final radius = size.width / 2;
 
     if (isDisabled) {
-      canvas.drawCircle(center, radius, Paint()..color = const Color(0xFFFFFFFF));
+      canvas.drawCircle(
+          center, radius, Paint()..color = const Color(0xFFFFFFFF));
       canvas.drawCircle(
         center,
         radius - 0.5,
@@ -442,9 +469,11 @@ class XPRadioPainter extends CustomPainter {
     }
 
     // Background Fill
-    final LinearGradient bgGradient = isPressed ? _pressedGradient : _normalGradient;
+    final LinearGradient bgGradient =
+        isPressed ? _pressedGradient : _normalGradient;
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    canvas.drawCircle(center, radius, Paint()..shader = bgGradient.createShader(rect));
+    canvas.drawCircle(
+        center, radius, Paint()..shader = bgGradient.createShader(rect));
 
     // Inner Hover Shadow: inset -2px -2px #f8b636, inset 2px 2px #fedf9c
     if (isHovered && !isPressed) {
@@ -525,19 +554,24 @@ class XPDottedBorderPainter extends CustomPainter {
 
     // Top edge
     for (double x = left; x <= right; x += 2) {
-      canvas.drawRect(Rect.fromLTWH(x.roundToDouble(), top.roundToDouble(), 1, 1), paint);
+      canvas.drawRect(
+          Rect.fromLTWH(x.roundToDouble(), top.roundToDouble(), 1, 1), paint);
     }
     // Bottom edge
     for (double x = left; x <= right; x += 2) {
-      canvas.drawRect(Rect.fromLTWH(x.roundToDouble(), bottom.roundToDouble(), 1, 1), paint);
+      canvas.drawRect(
+          Rect.fromLTWH(x.roundToDouble(), bottom.roundToDouble(), 1, 1),
+          paint);
     }
     // Left edge
     for (double y = top; y <= bottom; y += 2) {
-      canvas.drawRect(Rect.fromLTWH(left.roundToDouble(), y.roundToDouble(), 1, 1), paint);
+      canvas.drawRect(
+          Rect.fromLTWH(left.roundToDouble(), y.roundToDouble(), 1, 1), paint);
     }
     // Right edge
     for (double y = top; y <= bottom; y += 2) {
-      canvas.drawRect(Rect.fromLTWH(right.roundToDouble(), y.roundToDouble(), 1, 1), paint);
+      canvas.drawRect(
+          Rect.fromLTWH(right.roundToDouble(), y.roundToDouble(), 1, 1), paint);
     }
   }
 
@@ -545,9 +579,3 @@ class XPDottedBorderPainter extends CustomPainter {
   bool shouldRepaint(covariant XPDottedBorderPainter oldDelegate) =>
       oldDelegate.color != color || oldDelegate.inset != inset;
 }
-
-
-
-
-
-
