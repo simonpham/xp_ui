@@ -156,14 +156,21 @@ class _XPButtonState extends State<XPButton> {
               isFocused: _isFocused,
               isDisabled: !_effectiveEnabled,
             ),
-            child: Container(
+            child: ConstrainedBox(
               constraints: BoxConstraints(
                 minWidth: widget.minWidth,
                 minHeight: widget.minHeight,
               ),
-              padding: widget.padding,
-              alignment: Alignment.center,
-              child: content,
+              child: Padding(
+                padding: widget.padding,
+                // Size to the content (but at least the minimum size) instead
+                // of expanding to fill loose constraints.
+                child: Center(
+                  widthFactor: 1,
+                  heightFactor: 1,
+                  child: content,
+                ),
+              ),
             ),
           ),
         ),
