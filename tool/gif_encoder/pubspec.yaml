@@ -1,0 +1,9 @@
+name: xp_dart_gif_encoder
+description: Encodes the README demo GIF from frames rendered by tool/screenshots.
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  image: ^4.2.0
