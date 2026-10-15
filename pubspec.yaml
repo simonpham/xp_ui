@@ -1,19 +1,29 @@
 name: xp_dart
 description: "An authentic, high-performance Windows XP (Luna Blue) widget library for Flutter with zero material or cupertino dependencies."
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/simonpham/xp_ui
 repository: https://github.com/simonpham/xp_ui
 issue_tracker: https://github.com/simonpham/xp_ui/issues
 topics:
   - windows-xp
   - ui
-  - retro
   - widgets
-  - desktop
+  - retro
+  - design-system
+
+screenshots:
+  - description: "Animated tour of the xp_dart widgets: buttons, checkboxes, tabs, progress bars and windows."
+    path: doc/screenshots/demo.gif
+  - description: "An XP window with title bar, form controls and status bar."
+    path: doc/screenshots/window.png
+  - description: "Form controls: buttons, checkboxes, radio buttons, text fields, dropdown and slider."
+    path: doc/screenshots/controls.png
+  - description: "Explorer-style window with a tree view, XP scrollbar and status bar."
+    path: doc/screenshots/explorer.png
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
 
 dependencies:
   flutter:
@@ -24,8 +34,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-
-flutter:
-  assets:
-    - assets/icon/
-

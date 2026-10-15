@@ -1,17 +1,22 @@
-# xp_dart_example
+# xp_dart example
 
-A new Flutter project.
+A Flutter port of the [XP.css](https://botoxparty.github.io/XP.css/)
+documentation page, built entirely with `xp_dart` widgets and without
+`material.dart` or `cupertino.dart`.
 
-## Getting Started
+## Run it
 
-This project is a starting point for a Flutter application.
+```bash
+cd example
+flutter pub get
+flutter run -d macos   # or linux, windows, chrome
+```
 
-A few resources to get you started if this is your first Flutter project:
+The repository only checks in the macOS runner. To run on another platform,
+generate its runner first:
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+flutter create --platforms=linux,windows,web .
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+See [`lib/main.dart`](lib/main.dart) for the full source.
