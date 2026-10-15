@@ -512,4 +512,21 @@ void main() {
     );
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('XPButton sizes to its content under loose constraints',
+      (tester) async {
+    await tester.pumpWidget(
+      _buildTestApp(
+        SizedBox(
+          width: 400,
+          height: 300,
+          child: Align(child: XPButton(label: 'OK', onPressed: () {})),
+        ),
+      ),
+    );
+
+    final size = tester.getSize(find.byType(XPButton));
+    expect(size.width, 75);
+    expect(size.height, 23);
+  });
 }
