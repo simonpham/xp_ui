@@ -529,4 +529,38 @@ void main() {
     expect(size.width, 75);
     expect(size.height, 23);
   });
+
+  testWidgets('XPWindow shrink-wraps under loose constraints', (tester) async {
+    await tester.pumpWidget(
+      _buildTestApp(
+        const Center(
+          child: XPWindow(
+            width: 300,
+            titleText: 'Small',
+            child: XPWindowBody(child: Text('Hi')),
+          ),
+        ),
+      ),
+    );
+
+    expect(tester.getSize(find.byType(XPWindow)).height, lessThan(100));
+  });
+
+  testWidgets('XPWindow fills an explicit height', (tester) async {
+    await tester.pumpWidget(
+      _buildTestApp(
+        const Center(
+          child: XPWindow(
+            width: 300,
+            height: 250,
+            titleText: 'Tall',
+            child: XPWindowBody(child: Text('Hi')),
+          ),
+        ),
+      ),
+    );
+
+    expect(tester.getSize(find.byType(XPWindow)).height, 250);
+    expect(tester.getSize(find.byType(XPWindowBody)).height, greaterThan(200));
+  });
 }

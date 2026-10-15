@@ -8,6 +8,22 @@ import '../theme/xp_theme.dart';
 ///
 /// Features classic Luna Blue 6-tier nested border, gradient title bar,
 /// window control buttons, window body, and status bar.
+///
+/// Sizing: with an explicit [height] (or any tight height constraint) the
+/// [child] is expanded so the [statusBar] sits at the bottom of the window.
+/// Otherwise the window shrink-wraps its content, up to the available height.
+///
+/// ```dart
+/// XPWindow(
+///   width: 320,
+///   titleText: 'My First Program',
+///   onClose: () {},
+///   statusBar: const XPStatusBar(
+///     fields: [XPStatusBarField(child: Text('Ready'))],
+///   ),
+///   child: const XPWindowBody(child: Text('Hello, world!')),
+/// )
+/// ```
 class XPWindow extends StatelessWidget {
   /// The main content child of the window.
   final Widget child;
@@ -99,12 +115,16 @@ class XPWindow extends StatelessWidget {
                   : null;
 
               if (hasBoundedHeight) {
+                // Fill a tight height (e.g. an explicit [height]); otherwise
+                // shrink-wrap the content up to the available height.
+                final fill = constraints.hasTightHeight;
                 return Column(
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: fill ? MainAxisSize.max : MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (titleBar case final Widget tb) tb,
-                    Expanded(
+                    Flexible(
+                      fit: fill ? FlexFit.tight : FlexFit.loose,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 3.0),
                         child: child,
