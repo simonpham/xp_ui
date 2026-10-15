@@ -83,7 +83,7 @@ class XPTextField extends StatefulWidget {
 }
 
 class _XPTextFieldState extends State<XPTextField> {
-  late final TextEditingController _controller;
+  late TextEditingController _controller;
   late final FocusNode _focusNode;
   bool _isFocused = false;
   bool _wasEmpty = true;
@@ -94,7 +94,7 @@ class _XPTextFieldState extends State<XPTextField> {
     _controller = widget.controller ?? TextEditingController();
     _wasEmpty = _controller.text.isEmpty;
     _controller.addListener(_handleControllerChange);
-    _focusNode = FocusNode();
+    _focusNode = FocusNode(canRequestFocus: widget.enabled);
     _focusNode.addListener(() {
       setState(() => _isFocused = _focusNode.hasFocus);
     });
@@ -105,6 +105,24 @@ class _XPTextFieldState extends State<XPTextField> {
     if (_wasEmpty != nowEmpty) {
       _wasEmpty = nowEmpty;
       if (mounted) setState(() {});
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant XPTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.controller != oldWidget.controller) {
+      _controller.removeListener(_handleControllerChange);
+      if (oldWidget.controller == null) {
+        _controller.dispose();
+      }
+      _controller = widget.controller ?? TextEditingController();
+      _wasEmpty = _controller.text.isEmpty;
+      _controller.addListener(_handleControllerChange);
+    }
+    if (widget.enabled != oldWidget.enabled) {
+      _focusNode.canRequestFocus = widget.enabled;
+      if (!widget.enabled) _focusNode.unfocus();
     }
   }
 
@@ -159,6 +177,7 @@ class _XPTextFieldState extends State<XPTextField> {
             selectionColor: XPColors.dialogBlue,
             selectionControls: xpTextSelectionControls,
             obscureText: widget.obscureText,
+            readOnly: !widget.enabled,
             autofocus: widget.autofocus,
             maxLines: 1,
             onChanged: widget.onChanged,
@@ -214,7 +233,7 @@ class XPTextArea extends StatefulWidget {
 }
 
 class _XPTextAreaState extends State<XPTextArea> {
-  late final TextEditingController _controller;
+  late TextEditingController _controller;
   late final FocusNode _focusNode;
   bool _isFocused = false;
   bool _wasEmpty = true;
@@ -225,7 +244,7 @@ class _XPTextAreaState extends State<XPTextArea> {
     _controller = widget.controller ?? TextEditingController();
     _wasEmpty = _controller.text.isEmpty;
     _controller.addListener(_handleControllerChange);
-    _focusNode = FocusNode();
+    _focusNode = FocusNode(canRequestFocus: widget.enabled);
     _focusNode.addListener(() {
       setState(() => _isFocused = _focusNode.hasFocus);
     });
@@ -236,6 +255,24 @@ class _XPTextAreaState extends State<XPTextArea> {
     if (_wasEmpty != nowEmpty) {
       _wasEmpty = nowEmpty;
       if (mounted) setState(() {});
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant XPTextArea oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.controller != oldWidget.controller) {
+      _controller.removeListener(_handleControllerChange);
+      if (oldWidget.controller == null) {
+        _controller.dispose();
+      }
+      _controller = widget.controller ?? TextEditingController();
+      _wasEmpty = _controller.text.isEmpty;
+      _controller.addListener(_handleControllerChange);
+    }
+    if (widget.enabled != oldWidget.enabled) {
+      _focusNode.canRequestFocus = widget.enabled;
+      if (!widget.enabled) _focusNode.unfocus();
     }
   }
 
@@ -288,6 +325,7 @@ class _XPTextAreaState extends State<XPTextArea> {
             backgroundCursorColor: const Color(0xFFCCCCCC),
             selectionColor: XPColors.dialogBlue,
             selectionControls: xpTextSelectionControls,
+            readOnly: !widget.enabled,
             autofocus: widget.autofocus,
             maxLines: widget.maxLines,
             onChanged: widget.onChanged,

@@ -439,4 +439,77 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.escape); // close dropdown
     await tester.pump();
   });
+
+  testWidgets('Disabled XPTextField does not accept input', (tester) async {
+    final controller = TextEditingController(text: 'locked');
+
+    await tester.pumpWidget(
+      _buildTestApp(
+        XPTextField(controller: controller, enabled: false),
+      ),
+    );
+
+    await tester.tap(find.byType(XPTextField));
+    await tester.pump();
+    final editable = tester.widget<EditableText>(find.byType(EditableText));
+    expect(editable.readOnly, isTrue);
+    expect(editable.focusNode.hasFocus, isFalse);
+    expect(controller.text, 'locked');
+  });
+
+  testWidgets('XPTextField switches to a new controller', (tester) async {
+    final first = TextEditingController(text: 'first');
+    final second = TextEditingController(text: 'second');
+    final current = ValueNotifier<TextEditingController>(first);
+
+    await tester.pumpWidget(
+      _buildTestApp(
+        ValueListenableBuilder<TextEditingController>(
+          valueListenable: current,
+          builder: (context, c, _) => XPTextField(controller: c),
+        ),
+      ),
+    );
+    expect(find.text('first'), findsOneWidget);
+
+    current.value = second;
+    await tester.pump();
+    expect(find.text('second'), findsOneWidget);
+  });
+
+  testWidgets('XPScrollbar drives a child without its own controller',
+      (tester) async {
+    await tester.pumpWidget(
+      _buildTestApp(
+        SizedBox(
+          height: 200,
+          child: XPScrollbar(
+            child: ListView.builder(
+              itemCount: 100,
+              itemExtent: 20,
+              itemBuilder: (context, i) => Text('Row $i'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    final scrollable = tester.state<ScrollableState>(find.byType(Scrollable));
+    expect(scrollable.position.pixels, 0);
+
+    // Tapping the down arrow should scroll the list.
+    await tester.tap(find.byType(XPScrollArrowButton).last);
+    await tester.pumpAndSettle();
+    expect(scrollable.position.pixels, greaterThan(0));
+  });
+
+  testWidgets('XPSlider tolerates an empty range', (tester) async {
+    await tester.pumpWidget(
+      _buildTestApp(
+        XPSlider(value: 5, min: 5, max: 5, onChanged: (_) {}),
+      ),
+    );
+    expect(tester.takeException(), isNull);
+  });
 }

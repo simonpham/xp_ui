@@ -4,8 +4,28 @@ import '../svg/xp_svg_image.dart';
 
 /// Authentic Windows XP styled Scrollbar widget matching XP.css.
 ///
-/// Features 17px SVG arrow buttons, #c8d6fb thumb with 1px white border and inset shadows,
-/// and smooth scroll controller integration.
+/// Features 17px SVG arrow buttons, #c8d6fb thumb with 1px white border and
+/// inset shadows, and smooth scroll controller integration.
+///
+/// The scrollbar is painted on top of [child], along its right edge (vertical)
+/// or bottom edge (horizontal), so the scrollable content should reserve
+/// 17px of padding on that side.
+///
+/// If [controller] is omitted, an internal controller is provided to [child]
+/// through a [PrimaryScrollController], so a `ListView` or
+/// `SingleChildScrollView` without its own controller is picked up
+/// automatically. When passing a [controller], give the same one to the
+/// scrollable child.
+///
+/// ```dart
+/// XPScrollbar(
+///   child: ListView.builder(
+///     padding: const EdgeInsets.only(right: 17),
+///     itemCount: 100,
+///     itemBuilder: (context, i) => Text('Item $i'),
+///   ),
+/// )
+/// ```
 class XPScrollbar extends StatefulWidget {
   /// The scrollable child widget wrapped by this scrollbar.
   final Widget child;
@@ -37,9 +57,25 @@ class _XPScrollbarState extends State<XPScrollbar> {
   }
 
   @override
+  void didUpdateWidget(covariant XPScrollbar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.controller != null && _internalController != null) {
+      _internalController!.dispose();
+      _internalController = null;
+    }
+  }
+
+  @override
   void dispose() {
     _internalController?.dispose();
     super.dispose();
+  }
+
+  /// Rebuilds the thumb when the content or viewport size changes, which a
+  /// [ScrollController] alone does not report.
+  bool _handleMetricsChanged(ScrollMetricsNotification notification) {
+    if (notification.depth == 0 && mounted) setState(() {});
+    return false;
   }
 
   void _scrollBy(double offset) {
@@ -59,13 +95,28 @@ class _XPScrollbarState extends State<XPScrollbar> {
   Widget build(BuildContext context) {
     final isVertical = widget.scrollDirection == Axis.vertical;
 
+    Widget child = widget.child;
+    if (widget.controller == null) {
+      child = PrimaryScrollController(
+        controller: _effectiveController,
+        scrollDirection: widget.scrollDirection,
+        automaticallyInheritForPlatforms: TargetPlatform.values.toSet(),
+        child: child,
+      );
+    }
+
     return Stack(
       children: [
-        Positioned.fill(child: widget.child),
+        Positioned.fill(
+          child: NotificationListener<ScrollMetricsNotification>(
+            onNotification: _handleMetricsChanged,
+            child: child,
+          ),
+        ),
         Positioned(
-          top: 0,
+          top: isVertical ? 0 : null,
           right: 0,
-          bottom: isVertical ? 0 : null,
+          bottom: 0,
           left: isVertical ? null : 0,
           height: isVertical ? null : 17,
           width: isVertical ? 17 : null,

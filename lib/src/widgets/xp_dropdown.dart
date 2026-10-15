@@ -190,8 +190,26 @@ class _XPDropdownState<T> extends State<XPDropdown<T>> {
   }
 
   @override
+  void didUpdateWidget(covariant XPDropdown<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (_isOpen && !_effectiveEnabled) {
+      _closeDropdown();
+    } else {
+      // Keep an open popup in sync with the new items / selected value. The
+      // overlay is not a descendant of this widget, so rebuild it after the
+      // current frame instead of during build.
+      if (_overlayEntry != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _overlayEntry?.markNeedsBuild();
+        });
+      }
+    }
+  }
+
+  @override
   void dispose() {
-    _closeDropdown();
+    _overlayEntry?.remove();
+    _overlayEntry = null;
     _focusNode.dispose();
     super.dispose();
   }

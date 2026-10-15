@@ -48,7 +48,8 @@ class XPSlider extends StatefulWidget {
     this.hasBoxIndicator = false,
     this.width,
     this.height,
-  });
+  })  : assert(min <= max, 'min must be less than or equal to max'),
+        assert(divisions == null || divisions > 0, 'divisions must be > 0');
 
   @override
   State<XPSlider> createState() => _XPSliderState();
@@ -58,7 +59,7 @@ class _XPSliderState extends State<XPSlider> {
   bool _isFocused = false;
 
   void _updateValueFromOffset(Offset localPosition, Size size) {
-    if (widget.onChanged == null) return;
+    if (widget.onChanged == null || widget.max <= widget.min) return;
 
     double normalized;
     if (!widget.isVertical) {
@@ -88,9 +89,9 @@ class _XPSliderState extends State<XPSlider> {
     final double defaultWidth = widget.isVertical ? 21.0 : 150.0;
     final double defaultHeight = widget.isVertical ? 150.0 : 21.0;
 
+    final range = widget.max - widget.min;
     final normalizedValue =
-        ((widget.value - widget.min) / (widget.max - widget.min))
-            .clamp(0.0, 1.0);
+        range > 0 ? ((widget.value - widget.min) / range).clamp(0.0, 1.0) : 0.0;
 
     return Focus(
       canRequestFocus: widget.onChanged != null,
